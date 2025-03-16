@@ -7,7 +7,8 @@ softdepend: [
   ItemsAdder,
   MMOItems,
   Oraxen,
-  Nexo
+  Nexo,
+  ProtoclLib
 ]
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0
