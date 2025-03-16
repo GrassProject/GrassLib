@@ -1,4 +1,4 @@
-package com.github.grassproject.lib.util
+package com.github.grassproject.grassLib.utilities
 
 import org.bukkit.Bukkit
 import java.util.regex.Pattern

@@ -11,25 +11,10 @@ private val ARMOR_MATERIALS = setOf(
     Material.NETHERITE_BOOTS, Material.NETHERITE_LEGGINGS, Material.NETHERITE_CHESTPLATE, Material.NETHERITE_HELMET
 )
 
-private val HELMET_MATERIALS = setOf(
-    Material.LEATHER_HELMET, Material.IRON_HELMET, Material.GOLDEN_HELMET,
-    Material.DIAMOND_HELMET, Material.NETHERITE_HELMET
-)
-
-private val CHESTPLATE_MATERIALS = setOf(
-    Material.LEATHER_CHESTPLATE, Material.IRON_CHESTPLATE, Material.GOLDEN_CHESTPLATE,
-    Material.DIAMOND_CHESTPLATE, Material.NETHERITE_CHESTPLATE
-)
-
-private val LEGGINGS_MATERIALS = setOf(
-    Material.LEATHER_LEGGINGS, Material.IRON_LEGGINGS, Material.GOLDEN_LEGGINGS,
-    Material.DIAMOND_LEGGINGS, Material.NETHERITE_LEGGINGS
-)
-
-private val BOOTS_MATERIALS = setOf(
-    Material.LEATHER_BOOTS, Material.IRON_BOOTS, Material.GOLDEN_BOOTS,
-    Material.DIAMOND_BOOTS, Material.NETHERITE_BOOTS
-)
+private val HELMET_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_HELMET") }.toSet()
+private val CHESTPLATE_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_CHESTPLATE") }.toSet()
+private val LEGGINGS_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_LEGGINGS") }.toSet()
+private val BOOTS_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_BOOTS") }.toSet()
 
 private val STUFF_MATERIALS = setOf(
     Material.WOODEN_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLDEN_SWORD, Material.DIAMOND_SWORD, Material.NETHERITE_SWORD,
@@ -40,13 +25,11 @@ private val STUFF_MATERIALS = setOf(
     Material.FISHING_ROD, Material.BOW, Material.CROSSBOW, Material.TRIDENT, Material.FLINT_AND_STEEL, Material.SHEARS, Material.MACE
 )
 
-private val SKULL_MATERIALS = setOf(
-    Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD
-)
+private val SKULL_MATERIALS = setOf(Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD)
 
-fun ItemStack.isEnchantable(): Boolean = isArmor() || isStuff()
+fun ItemStack.isEnchantable(): Boolean = type in ARMOR_MATERIALS || type in STUFF_MATERIALS
 
-fun ItemStack.isStuffOrArmor(): Boolean = isArmor() || isStuff()
+fun ItemStack.isStuffOrArmor(): Boolean = isEnchantable()
 
 fun ItemStack.isSkull(): Boolean = type in SKULL_MATERIALS
 
