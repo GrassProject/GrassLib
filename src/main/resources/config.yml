@@ -7,3 +7,6 @@ database:
     username: root
     password: ""
     parameters: ?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+  pool:
+    size: 10
+    name: grasslib

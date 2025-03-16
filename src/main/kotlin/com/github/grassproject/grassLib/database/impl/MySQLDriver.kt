@@ -2,6 +2,10 @@ package com.github.grassproject.grassLib.database.impl
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.Statement
 
 class MySQLDriver(
     host: String,
@@ -12,14 +16,73 @@ class MySQLDriver(
     parameters: String,
     maximumPoolSize: Int = 10,
     poolName: String,
-): HikariDataSource(HikariConfig().apply {
-    this.jdbcUrl = "jdbc:mysql://$host:$port/$database$parameters"
-    this.driverClassName = "com.mysql.cj.jdbc.Driver"
-    this.username = username
-    this.password = password
-    this.maximumPoolSize = maximumPoolSize
-    this.poolName = poolName
-    this.addDataSourceProperty("cachePrepStmts", "true")
-    this.addDataSourceProperty("prepStmtCacheSize", "250")
-    this.addDataSourceProperty("prepStmtCacheSqlLimit", "2048")
-})
+): DataDriver {
+
+    val config = HikariConfig().apply {
+        this.jdbcUrl = "jdbc:mysql://$host:$port/$database$parameters"
+        // this.driverClassName = "com.mysql.cj.jdbc.Driver"
+        this.username = username
+        this.password = password
+        this.maximumPoolSize = maximumPoolSize
+        this.poolName = poolName
+        this.addDataSourceProperty("cachePrepStmts", "true")
+        this.addDataSourceProperty("prepStmtCacheSize", "250")
+        this.addDataSourceProperty("prepStmtCacheSqlLimit", "2048")
+    }
+
+    val dataSource = HikariDataSource(config)
+
+    override fun <T> executeQuery(sql: String, preparedStatement: PreparedStatement.() -> Unit, resultSet: ResultSet.() -> T): T {
+        return getConnection().use { connection ->
+            connection.prepareStatement(sql).use { statement ->
+                preparedStatement(statement)
+                resultSet(statement.executeQuery())
+            }
+        }
+    }
+
+    override fun executeBatch(sql: String, preparedStatement: PreparedStatement.() -> Unit): IntArray {
+        getConnection().use { connection ->
+            connection.prepareStatement(sql).use { statement ->
+                preparedStatement(statement)
+                return statement.executeBatch()
+            }
+        }
+    }
+
+    override fun execute(sql: String, preparedStatement: PreparedStatement.() -> Unit): Boolean {
+        getConnection().use { connection ->
+            connection.prepareStatement(sql).use { statement ->
+                preparedStatement(statement)
+                return statement.execute()
+            }
+        }
+    }
+
+    override fun <T> preparedStatement(sql: String, preparedStatement: PreparedStatement.() -> T): T {
+        return useConnection {
+            prepareStatement(sql).use { statement ->
+                preparedStatement(statement)
+            }
+        }
+    }
+
+    override fun <T> useConnection(connection: Connection.() -> T): T {
+        getConnection().use {
+            return connection(it)
+        }
+    }
+
+    override fun <T> statement(statement: Statement.() -> T): T {
+        return useConnection {
+            createStatement().use { s ->
+                statement(s)
+            }
+        }
+    }
+
+    fun getConnection(): Connection {
+        return dataSource.connection
+    }
+
+}

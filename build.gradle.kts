@@ -35,13 +35,6 @@ dependencies {
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
     implementation("com.zaxxer","HikariCP","6.2.1") // HikariCP
 
-    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
-
 }
 
 kotlin {
@@ -58,6 +51,8 @@ tasks.shadowJar {
     mergeServiceFiles()
 
     relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
+//    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
+//    relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow.exposed")
 
     exclude("kotlin/**")
 //    dependencies {
@@ -65,7 +60,7 @@ tasks.shadowJar {
 //    }
     // from(rootProject.file("LICENSE"))
 
-//    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
     minimize()
 }
