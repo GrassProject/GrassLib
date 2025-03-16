@@ -42,10 +42,9 @@ tasks.build {
 tasks.shadowJar {
     relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
 
-    exclude("META-INF/**")
-    exclude("kotlin/**")
-    exclude("kotlinx/**")
-    exclude("org/**")
+    dependencies {
+        include("")
+    }
     // from(rootProject.file("LICENSE"))
 
     destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")

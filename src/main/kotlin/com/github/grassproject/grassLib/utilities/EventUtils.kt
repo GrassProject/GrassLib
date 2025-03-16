@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.util
+package com.github.grassproject.grassLib.utilities
 
 import org.bukkit.Bukkit
 import org.bukkit.event.Cancellable
