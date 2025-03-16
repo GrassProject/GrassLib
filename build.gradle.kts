@@ -1,10 +1,11 @@
 plugins {
     kotlin("jvm") version "2.1.0"
     id("com.gradleup.shadow") version "9.0.0-beta10"
+    id("maven-publish")
 }
 
-group = "com.github.grassproject.grassLib"
-version = "1.0-SNAPSHOT"
+group = "com.github.grassproject"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -56,5 +57,23 @@ tasks.processResources {
     filteringCharset = "UTF-8"
     filesMatching("plugin.yml") {
         expand(props)
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["java"])
+                groupId = "com.github.grassproject"
+                artifactId = "GrassLib"
+                version = "1.0"
+
+                pom {
+                    name.set("GrassLib")
+                    description.set("Library for Minecraft plugin")
+                }
+            }
+        }
     }
 }

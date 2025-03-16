@@ -3,3 +3,5 @@ main: com.github.grassproject.grassLib.GrassLib
 version: ${version}
 api-version: 1.21
 authors: [ GrassProject ]
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0
