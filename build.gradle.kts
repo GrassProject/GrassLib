@@ -7,6 +7,8 @@ plugins {
 group = "com.github.grassproject"
 version = "1.0"
 
+val exposedVersion: String by project
+
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/") // Paper
@@ -31,6 +33,14 @@ dependencies {
     compileOnly("com.comphenix.protocol:ProtocolLib:5.3.0") // ProtocolLib
 
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
+    implementation("com.zaxxer","HikariCP","6.2.1") // HikariCP
+
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
 }
 
