@@ -49,12 +49,13 @@ tasks.shadowJar {
 
     relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
 
-    dependencies {
-        include("")
-    }
+    exclude("kotlin/**")
+//    dependencies {
+//        include("")
+//    }
     // from(rootProject.file("LICENSE"))
 
-    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+//    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
     minimize()
 }

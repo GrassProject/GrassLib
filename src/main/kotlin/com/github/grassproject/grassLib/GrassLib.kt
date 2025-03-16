@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
     companion object {
-        lateinit var plugin: GrassLib
+        lateinit var plugin: JavaPlugin
             private set
     }
 
