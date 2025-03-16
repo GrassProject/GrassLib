@@ -16,6 +16,7 @@ repositories {
     maven("https://repo.oraxen.com/releases") // Oraxen
     maven("https://nexus.phoenixdevt.fr/repository/maven-public/") // MMOItems - MythicLib
     maven("https://repo.codemc.io/repository/maven-public/") // NBT-API
+    maven("https://repo.dmulloy2.net/repository/public/") // protocolLib
 }
 
 dependencies {
@@ -27,6 +28,7 @@ dependencies {
     compileOnly("io.lumine", "MythicLib-dist","1.6.2-SNAPSHOT") // MythicLib
     compileOnly("net.Indyuce", "MMOItems-API","6.9.5-SNAPSHOT") // MMOItems
     compileOnly("com.arcaniax","HeadDatabase-API", "1.3.2") // HeadDatabase
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.3.0") // ProtocolLib
 
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
 
@@ -41,6 +43,10 @@ tasks.build {
 }
 
 tasks.shadowJar {
+    archiveFileName.set("GrassLib.jar")
+    archiveClassifier.set("all")
+    mergeServiceFiles()
+
     relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
 
     dependencies {
@@ -49,6 +55,8 @@ tasks.shadowJar {
     // from(rootProject.file("LICENSE"))
 
     destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+//    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
+    minimize()
 }
 
 tasks.processResources {
@@ -65,9 +73,9 @@ afterEvaluate {
         publications {
             register<MavenPublication>("release") {
                 from(components["java"])
-                groupId = "com.github.grassproject"
+                groupId = groupId
                 artifactId = "GrassLib"
-                version = "1.0"
+                version = version
 
                 pom {
                     name.set("GrassLib")
