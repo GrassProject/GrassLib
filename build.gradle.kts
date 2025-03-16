@@ -29,45 +29,33 @@ dependencies {
 
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
 
-    // testImplementation(kotlin("test"))
-}
-
-tasks {
-    processResources {
-        val props = mapOf(
-            "name" to rootProject.name,
-            "version" to rootProject.version,
-            "author" to "TeamGrass25"
-        )
-        inputs.properties(props)
-        filteringCharset = "UTF-8"
-        filesMatching("plugin.yml") {
-            expand(props)
-        }
-    }
-
-    shadowJar {
-        relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
-
-        exclude("META-INF/**")
-        exclude("kotlin/**")
-        exclude("kotlinx/**")
-        exclude("org/**")
-        // from(rootProject.file("LICENSE"))
-    }
-
-    build {
-        dependsOn(shadowJar)
-        doLast {
-            copy {
-                from(shadowJar.get().archiveFile)
-                into("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
-                rename { "${rootProject.name}-${rootProject.version}.jar" }
-            }
-        }
-    }
 }
 
 kotlin {
     jvmToolchain(21)
+}
+
+tasks.build {
+    dependsOn("shadowJar")
+}
+
+tasks.shadowJar {
+    relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
+
+    exclude("META-INF/**")
+    exclude("kotlin/**")
+    exclude("kotlinx/**")
+    exclude("org/**")
+    // from(rootProject.file("LICENSE"))
+
+    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+}
+
+tasks.processResources {
+    val props = mapOf("version" to version)
+    inputs.properties(props)
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml") {
+        expand(props)
+    }
 }

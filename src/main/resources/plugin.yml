@@ -1,5 +1,5 @@
-name: '${name}'
+name: GrassLib
 main: com.github.grassproject.grassLib.GrassLib
-version: '${version}'
-api-version: 1.19
-author: '${author}'
+version: ${version}
+api-version: 1.21
+authors: [ GrassProject ]
