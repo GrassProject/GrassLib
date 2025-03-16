@@ -2,40 +2,75 @@ package com.github.grassproject.grassLib.builder;
 
 import com.github.grassproject.grassLib.utilities.component.Str2Component;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * @author apo2073
+ * @apiNote ItemBuilder
+* */
 public class ItemBuilder {
     private final ItemStack itemStack;
     private Integer amount;
     private ItemMeta itemMeta;
     private List<Component> lore;
+
+    /**
+     * @param material The Material of The Item
+     * */
     public ItemBuilder(Material material) {this.itemStack=new ItemStack(material);}
 
+    /**
+     * @param material The Material of The Item
+     * @param amount Amount of The Item
+     * */
     public ItemBuilder(Material material, int amount) {
         this.itemStack=new ItemStack(material, amount);
         this.amount=amount;
     }
 
+    /**
+     * @param item Get ItemBuilder from ItemStack
+     * @return itemBuilder
+     * */
+    public ItemBuilder(ItemStack item) {
+        this.itemStack=item;
+        this.itemMeta=item.getItemMeta();
+    }
+
+    /**
+     * @return ItemMeta
+     * */
     public ItemMeta getItemMeta() {
         return itemMeta;
     }
+    /**
+     * @param meta ItemMeta to set
+     * */
     public ItemBuilder setItemMeta(ItemMeta meta) {
         this.itemMeta=meta;
         return this;
     }
 
+    /**
+     * @param displayName String value of the item display name
+     * */
     public ItemBuilder setDisplayName(String displayName) {
         this.itemMeta.displayName(Str2Component.Companion.toComponent(displayName));
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
     }
 
+    /**
+     * @param flags Flags to add
+     * */
     public ItemBuilder addItemFlag(ItemFlag... flags) {
         this.itemMeta.addItemFlags(flags);
         return this;
@@ -56,6 +91,9 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * @return ItemStack of item
+     * */
     public ItemStack build() {
         this.itemStack.setItemMeta(itemMeta);
         this.itemStack.setAmount(amount);
