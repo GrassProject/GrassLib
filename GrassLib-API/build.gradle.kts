@@ -31,11 +31,13 @@ tasks.build {
     dependsOn("shadowJar")
 }
 
-tasks.processResources {
-    val props = mapOf("version" to version)
-    inputs.properties(props)
-    filteringCharset = "UTF-8"
-    filesMatching("plugin.yml") {
-        expand(props)
-    }
+tasks.shadowJar {
+    archiveFileName.set("GrassLib-API.jar")
+    archiveClassifier.set("all")
+    mergeServiceFiles()
+
+    relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
+    exclude("kotlin/**")
+    exclude("org/**")
+    minimize()
 }

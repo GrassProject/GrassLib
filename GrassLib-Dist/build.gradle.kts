@@ -26,19 +26,21 @@ tasks.shadowJar {
     archiveClassifier.set("all")
     mergeServiceFiles()
 
-    relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
 //    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
 //    relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow.exposed")
 
     exclude("kotlin/**")
-//    dependencies {
-//        include("")
-//    }
+//    exclude("com.github.jengelman/**")
+    dependencies {
+        include(project(":GrassLib-API"))
+    }
     // from(rootProject.file("LICENSE"))
 
 //    destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
-    minimize()
+    minimize {
+        exclude(dependency("com.github.grassproject.*:.*"))
+    }
 }
 
 tasks.processResources {
