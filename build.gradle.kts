@@ -7,8 +7,6 @@ plugins {
 group = "com.github.grassproject"
 version = "1.0"
 
-val exposedVersion: String by project
-
 allprojects {
     apply(plugin = "java")
     apply(plugin = "maven-publish")

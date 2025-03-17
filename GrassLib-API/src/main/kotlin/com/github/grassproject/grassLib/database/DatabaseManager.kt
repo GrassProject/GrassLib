@@ -2,37 +2,41 @@ package com.github.grassproject.grassLib.database
 
 import com.github.grassproject.grassLib.database.impl.MySQLDriver
 import com.github.grassproject.grassLib.database.impl.SQLiteDriver
+import com.zaxxer.hikari.HikariDataSource
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
+import java.sql.Connection
 
-object DatabaseManager {
-    fun init(plugin: JavaPlugin, config: FileConfiguration) {
-        val type = config.getString("database.type", "SQLITE")!!.uppercase()
+class DatabaseManager(private val plugin: JavaPlugin) {
 
-        val host = config.getString("database.credentials.host", "localhost")!!
-        val port = config.getInt("database.credentials.port",3306)
-        val database = config.getString("database.credentials.database","database")!!
-        val username = config.getString("database.credentials.username", "root")!!
-        val password = config.getString("database.credentials.password", "")!!
-        val parameters = config.getString("database.credentials.parameters", "")!!
+    private var dataSource: HikariDataSource? = null
 
-        val maximumPoolSize = config.getInt("database.pool.size", 10)
-        val poolName = config.getString("database.pool.name", plugin.name)!!
+    fun init(config: FileConfiguration) {
+        check(dataSource == null) { "DatabaseManager is already initialized!" }
 
-        when (type) {
-            "SQLITE" -> {
-                val file = File(plugin.dataFolder, "sqlite.db")
-                file.createNewFile()
-                SQLiteDriver(file)
-            }
-            "MYSQL" -> {
-                MySQLDriver(host, port, database, username, password, parameters, maximumPoolSize, poolName)
-            }
-            else -> {
-                println("Failed to connect to type: $type")
-            }
+        val type = config.getString("database.type")?.uppercase() ?: "SQLITE"
+        dataSource = when (type) {
+            "SQLITE" -> SQLiteDriver(File(plugin.dataFolder, "sqlite.db").apply { parentFile.mkdirs(); createNewFile() })
+            "MYSQL" -> MySQLDriver(
+                host = config.getString("database.credentials.host") ?: "localhost",
+                port = config.getInt("database.credentials.port", 3306),
+                database = config.getString("database.credentials.database") ?: "database",
+                username = config.getString("database.credentials.username") ?: "root",
+                password = config.getString("database.credentials.password") ?: "",
+                parameters = config.getString("database.credentials.parameters") ?: "",
+                maximumPoolSize = config.getInt("database.pool.size", 10),
+                poolName = config.getString("database.pool.name") ?: plugin.name
+            )
+            else -> throw IllegalArgumentException("Unsupported database type: $type")
         }
     }
 
+    fun getConnection(): Connection = dataSource?.connection
+        ?: throw IllegalStateException("Database is not initialized!")
+
+    fun close() {
+        dataSource?.close()
+        dataSource = null
+    }
 }

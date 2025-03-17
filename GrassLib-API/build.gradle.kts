@@ -20,6 +20,9 @@ dependencies {
 
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
     implementation("com.zaxxer","HikariCP","6.2.1") // HikariCP
+
+    implementation("com.mysql:mysql-connector-j:9.2.0") // MySQL
+    implementation("org.xerial:sqlite-jdbc:3.49.1.0") // SQLite
 }
 
 val targetJavaVersion = 21
@@ -36,7 +39,9 @@ tasks.shadowJar {
     archiveClassifier.set("all")
     mergeServiceFiles()
 
-    relocate("de.tr7zw.changeme.nbtapi", "com.github.teamgrass25.lib.shadow")
+    relocate("de.tr7zw.changeme.nbtapi", "com.github.grassproject.grassLib.shadow")
+    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow")
+
     exclude("kotlin/**")
     exclude("org/**")
     minimize()

@@ -3,70 +3,12 @@ package com.github.grassproject.grassLib.database.impl
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import java.io.File
-import java.sql.*
-
-/*: HikariDataSource(HikariConfig().apply {
-    this.driverClassName = "org.sqlite.JDBC"
-    this.jdbcUrl = "jdbc:sqlite:${databaseFile.path}"
-    this.maximumPoolSize = 1
-})*/
 
 class SQLiteDriver(
-    private val databaseFile: File,
-): DataDriver {
-
-    private var _activeConnection: Connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.path)
-    val activeConnection: Connection
-        get() {
-            try {
-                if (!_activeConnection.isClosed) return this._activeConnection
-                Class.forName("org.sqlite.SQLiteDataSource")
-                this._activeConnection = DriverManager.getConnection("jdbc:sqlite:${databaseFile.path}")
-            } catch (e: SQLException) {
-                throw RuntimeException(e)
-            } catch (e: ClassNotFoundException) {
-                throw RuntimeException(e)
-            }
-            return this._activeConnection
-        }
-
-    override fun <T> executeQuery(sql: String, preparedStatement: PreparedStatement.() -> Unit, resultSet: ResultSet.() -> T): T {
-        return activeConnection.prepareStatement(sql).use { statement ->
-            preparedStatement(statement)
-            resultSet(statement.executeQuery())
-        }
-    }
-
-    override fun executeBatch(sql: String, preparedStatement: PreparedStatement.() -> Unit): IntArray {
-        activeConnection.prepareStatement(sql).use { statement ->
-            preparedStatement(statement)
-            return statement.executeBatch()
-        }
-    }
-
-    override fun execute(sql: String, preparedStatement: PreparedStatement.() -> Unit): Boolean {
-        activeConnection.prepareStatement(sql).use { statement ->
-            preparedStatement(statement)
-            return statement.execute()
-        }
-    }
-
-    override fun <T> preparedStatement(sql: String, preparedStatement: PreparedStatement.() -> T): T {
-        return activeConnection.prepareStatement(sql).use { statement ->
-            preparedStatement(statement)
-        }
-    }
-
-    override fun <T> useConnection(connection: Connection.() -> T): T {
-        return connection(activeConnection)
-    }
-
-    override fun <T> statement(statement: Statement.() -> T): T {
-        return useConnection {
-            createStatement().use { s ->
-                statement(s)
-            }
-        }
-    }
-
-}
+    databaseFile: File,
+): HikariDataSource(HikariConfig().apply {
+    jdbcUrl = "jdbc:sqlite:${databaseFile.path}"
+    driverClassName = "org.sqlite.JDBC"
+    this.connectionTestQuery = "SELECT 1"
+    this.maximumPoolSize = 1
+})
