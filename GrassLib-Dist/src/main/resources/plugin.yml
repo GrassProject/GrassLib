@@ -11,4 +11,4 @@ softdepend: [
   ProtoclLib
 ]
 libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.10

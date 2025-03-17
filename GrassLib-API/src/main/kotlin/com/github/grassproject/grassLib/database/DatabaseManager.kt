@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 object DatabaseManager {
-
     fun init(plugin: JavaPlugin, config: FileConfiguration) {
         val type = config.getString("database.type", "SQLITE")!!.uppercase()
 
