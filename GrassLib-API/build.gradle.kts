@@ -6,6 +6,8 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
+val exposedVersion: String by project
+
 dependencies {
     compileOnly("io.papermc.paper", "paper-api", "1.21.1-R0.1-SNAPSHOT") // Paper
     compileOnly("io.lumine","Mythic-Dist", "5.6.1") // MythicMob
@@ -23,6 +25,12 @@ dependencies {
 
     implementation("com.mysql","mysql-connector-j", "9.2.0") // MySQL
     implementation("org.xerial","sqlite-jdbc", "3.49.1.0") // SQLite
+
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
 }
 
 val targetJavaVersion = 21

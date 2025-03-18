@@ -5,20 +5,34 @@ import com.github.grassproject.grassLib.database.impl.SQLiteDriver
 import com.zaxxer.hikari.HikariDataSource
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.java.JavaPlugin
+import org.jetbrains.exposed.sql.Database
 import java.io.File
 import java.sql.Connection
 
 class DatabaseManager(private val plugin: JavaPlugin) {
 
-    private var dataSource: HikariDataSource? = null
+    private lateinit var dataSource: HikariDataSource
+    private lateinit var database: Database
 
     fun init(config: FileConfiguration) {
-        check(dataSource == null) { "DatabaseManager is already initialized!" }
+        check(!this::dataSource.isInitialized) { "DatabaseManager has already been initialized!" }
 
-        val type = config.getString("database.type")?.uppercase() ?: "SQLITE"
+        val type = try {
+            DatabaseType.valueOf(config.getString("database.type")?.uppercase() ?: "SQLITE")
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Unsupported database type: ${config.getString("database.type")}")
+        }
+
         dataSource = when (type) {
-            "SQLITE" -> SQLiteDriver(File(plugin.dataFolder, "sqlite.db").apply { parentFile.mkdirs(); createNewFile() })
-            "MYSQL" -> MySQLDriver(
+            DatabaseType.SQLITE -> {
+                val dbFile = File(plugin.dataFolder, "sqlite.db")
+                if (!dbFile.exists()) {
+                    dbFile.parentFile.mkdirs()
+                    dbFile.createNewFile()
+                }
+                SQLiteDriver(dbFile)
+            }
+            DatabaseType.MYSQL -> MySQLDriver(
                 host = config.getString("database.credentials.host") ?: "localhost",
                 port = config.getInt("database.credentials.port", 3306),
                 database = config.getString("database.credentials.database") ?: "database",
@@ -28,15 +42,22 @@ class DatabaseManager(private val plugin: JavaPlugin) {
                 maximumPoolSize = config.getInt("database.pool.size", 10),
                 poolName = config.getString("database.pool.name") ?: plugin.name
             )
-            else -> throw IllegalArgumentException("Unsupported database type: $type")
         }
+
+        database = Database.connect(dataSource)
     }
 
-    fun getConnection(): Connection = dataSource?.connection
-        ?: throw IllegalStateException("Database is not initialized!")
+    fun getConnection(): Connection = dataSource.connection
+
+    fun getDatabase(): Database = database
 
     fun close() {
-        dataSource?.close()
-        dataSource = null
+        if (this::dataSource.isInitialized) {
+            dataSource.close()
+        }
     }
+}
+
+enum class DatabaseType {
+    SQLITE, MYSQL
 }
