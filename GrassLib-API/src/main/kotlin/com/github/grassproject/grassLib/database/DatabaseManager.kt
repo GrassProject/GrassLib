@@ -45,6 +45,7 @@ class DatabaseManager(private val plugin: JavaPlugin) {
         }
 
         database = Database.connect(dataSource)
+        plugin.logger.info("Connected to database ${type.name}")
     }
 
     fun getConnection(): Connection = dataSource.connection

@@ -26,10 +26,7 @@ tasks.shadowJar {
     archiveClassifier.set("all")
     mergeServiceFiles()
 
-    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
-
     exclude("kotlin/**")
-//    exclude("com.github.jengelman/**")
     dependencies {
         include(project(":GrassLib-API"))
     }
