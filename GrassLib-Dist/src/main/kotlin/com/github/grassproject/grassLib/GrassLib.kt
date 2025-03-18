@@ -13,6 +13,6 @@ class GrassLib : JavaPlugin() {
         plugin = this
         saveDefaultConfig()
 
-        // DatabaseManager(plugin).init(config)
+        DatabaseManager(plugin).init(config)
     }
 }

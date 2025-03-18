@@ -44,5 +44,7 @@ tasks.shadowJar {
 
     exclude("kotlin/**")
     exclude("org/**")
-    minimize()
+    minimize {
+        exclude(dependency("com.github.grassproject.*:.*"))
+    }
 }

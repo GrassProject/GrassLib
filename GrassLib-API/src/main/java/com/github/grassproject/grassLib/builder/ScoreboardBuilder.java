@@ -5,6 +5,10 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.*;
 
+/**
+ * @author APO2073
+ * @apiNote Scoreboard Builder
+ * */
 public class ScoreboardBuilder {
     private String boardID;
     private Criteria type = Criteria.DUMMY;

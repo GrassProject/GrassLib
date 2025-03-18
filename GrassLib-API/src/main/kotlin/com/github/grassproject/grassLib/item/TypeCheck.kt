@@ -11,8 +11,8 @@ private val ARMOR_MATERIALS = setOf(
     Material.NETHERITE_BOOTS, Material.NETHERITE_LEGGINGS, Material.NETHERITE_CHESTPLATE, Material.NETHERITE_HELMET
 )
 
-private val HELMET_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_HELMET") }.toSet()
-private val CHESTPLATE_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_CHESTPLATE") }.toSet()
+private val HELMET_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_HELMET") || it.name.contains("SKULL") }.toSet()
+private val CHESTPLATE_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_CHESTPLATE") || it.name==Material.ELYTRA.name }.toSet()
 private val LEGGINGS_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_LEGGINGS") }.toSet()
 private val BOOTS_MATERIALS = ARMOR_MATERIALS.filter { it.name.endsWith("_BOOTS") }.toSet()
 
@@ -33,7 +33,7 @@ fun ItemStack.isStuffOrArmor(): Boolean = isEnchantable()
 
 fun ItemStack.isSkull(): Boolean = type in SKULL_MATERIALS
 
-fun ItemStack.isArmor(): Boolean = type in ARMOR_MATERIALS
+fun ItemStack.isArmor(): Boolean = type in ARMOR_MATERIALS || this.type.equipmentSlot.isArmor
 
 fun ItemStack.isHelmet(): Boolean = type in HELMET_MATERIALS
 

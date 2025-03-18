@@ -26,20 +26,20 @@ tasks.shadowJar {
     archiveClassifier.set("all")
     mergeServiceFiles()
 
-    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
+//    relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
 
     exclude("kotlin/**")
 //    exclude("com.github.jengelman/**")
     dependencies {
         include(project(":GrassLib-API"))
-    }
+    } // fix it
     // from(rootProject.file("LICENSE"))
 
     // destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
-    minimize {
-        exclude(dependency("com.github.grassproject.*:.*"))
-    }
+//    minimize {
+//        exclude(dependency("com.github.*:.*"))
+//    }
 }
 
 tasks.processResources {
