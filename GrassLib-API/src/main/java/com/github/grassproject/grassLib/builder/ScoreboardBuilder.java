@@ -3,7 +3,10 @@ package com.github.grassproject.grassLib.builder;
 import com.github.grassproject.grassLib.utilities.component.Str2Component;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.scoreboard.*;
+import org.bukkit.scoreboard.Criteria;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 /**
  * @author APO2073

@@ -2,7 +2,6 @@ package com.github.grassproject.grassLib.item.impl
 
 import com.github.grassproject.grassLib.utilities.PluginUtils
 import net.Indyuce.mmoitems.MMOItems
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

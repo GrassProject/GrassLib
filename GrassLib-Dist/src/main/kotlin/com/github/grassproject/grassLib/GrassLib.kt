@@ -1,6 +1,5 @@
 package com.github.grassproject.grassLib
 
-import com.github.grassproject.grassLib.database.DatabaseManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
