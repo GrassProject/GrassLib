@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.builder;
 
-import com.github.grassproject.grassLib.utilities.component.Str2Component;
+import com.github.grassproject.grassLib.utilities.component.StringExt;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
@@ -59,7 +59,7 @@ public class ItemBuilder {
      * @param displayName String value of the item display name
      * */
     public ItemBuilder setDisplayName(String displayName) {
-        this.itemMeta.displayName(Str2Component.Companion.toComponent(displayName));
+        this.itemMeta.displayName(StringExt.Companion.toMMComponent(displayName));
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
     }

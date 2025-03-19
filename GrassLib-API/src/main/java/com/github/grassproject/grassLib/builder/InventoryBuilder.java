@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.builder;
 
-import com.github.grassproject.grassLib.utilities.component.Str2Component;
+import com.github.grassproject.grassLib.utilities.component.StringExt;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  * @apiNote InventoryBuilder
  * */
 public class InventoryBuilder {
-    private String title = "Custom Chest";
+    private String title = "Custom Inventory";
     private InventoryType type = InventoryType.CHEST;
     private int size = 9;
     private final Map<Integer, ItemStack> items = new HashMap<>();
@@ -69,8 +69,8 @@ public class InventoryBuilder {
 
     public Inventory build() {
         Inventory inv = this.type == InventoryType.CHEST
-                ? Bukkit.createInventory(null, this.size, Str2Component.Companion.toComponent(this.title))
-                : Bukkit.createInventory(null, this.type, Str2Component.Companion.toComponent(this.title));
+                ? Bukkit.createInventory(null, this.size, StringExt.Companion.toMMComponent(this.title))
+                : Bukkit.createInventory(null, this.type, StringExt.Companion.toMMComponent(this.title));
 
         for (Map.Entry<Integer, ItemStack> entry : this.items.entrySet()) {
             inv.setItem(entry.getKey(), entry.getValue());

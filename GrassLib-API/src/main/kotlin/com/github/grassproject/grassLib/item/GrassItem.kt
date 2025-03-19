@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.item
 
-import com.github.grassproject.grassLib.utilities.component.str2component
+import com.github.grassproject.grassLib.utilities.component.toMMComponent
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -29,12 +29,12 @@ class GrassItem(
         val resultItem = item.clone()
         val itemMeta: ItemMeta = resultItem.itemMeta ?: return resultItem
 
-        description?.let { lore ->
-            itemMeta.lore(lore.map { it.str2component() })
+        name?.let { displayName ->
+            itemMeta.displayName("<!i>${displayName}".toMMComponent())
         }
 
-        name?.let { displayName ->
-            itemMeta.displayName(displayName.str2component())
+        description?.let { lore ->
+            itemMeta.lore(lore.map { "<!i>${it}".toMMComponent() })
         }
 
         modelData.let { itemMeta.setCustomModelData(it) }

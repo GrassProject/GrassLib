@@ -3,6 +3,7 @@ package com.github.grassproject.grassLib
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
+
     companion object {
         lateinit var plugin: JavaPlugin
             private set
@@ -12,6 +13,7 @@ class GrassLib : JavaPlugin() {
         plugin = this
         saveDefaultConfig()
         // DatabaseManager(plugin).init(config) // Example
+        // server.pluginManager.registerEvents(TestInventory(), this) // Example
     }
 
 }

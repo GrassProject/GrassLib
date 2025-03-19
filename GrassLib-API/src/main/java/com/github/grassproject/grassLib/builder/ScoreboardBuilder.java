@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.builder;
 
-import com.github.grassproject.grassLib.utilities.component.Str2Component;
+import com.github.grassproject.grassLib.utilities.component.StringExt;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Criteria;
@@ -24,7 +24,7 @@ public class ScoreboardBuilder {
     public ScoreboardBuilder(String boardID, Criteria type, String title, DisplaySlot slot) {
         this.boardID = boardID;
         this.type = type;
-        this.title = Str2Component.Companion.toComponent(title);
+        this.title = StringExt.Companion.toMMComponent(title);
         this.slot = slot;
     }
 
@@ -50,7 +50,7 @@ public class ScoreboardBuilder {
     }
 
     public ScoreboardBuilder setTitle(String title) {
-        this.title = Str2Component.Companion.toComponent(title);
+        this.title = StringExt.Companion.toMMComponent(title);
         return this;
     }
 
