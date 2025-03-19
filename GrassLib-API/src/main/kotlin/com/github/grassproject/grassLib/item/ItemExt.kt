@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib.item
 
 import org.bukkit.Material
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.inventory.ItemStack
 
 private val ARMOR_MATERIALS = setOf(
@@ -44,3 +45,13 @@ fun ItemStack.isLeggings(): Boolean = type in LEGGINGS_MATERIALS
 fun ItemStack.isBoots(): Boolean = type in BOOTS_MATERIALS
 
 fun ItemStack.isStuff(): Boolean = type in STUFF_MATERIALS
+
+fun FileConfiguration.toGrassItem(key: String): GrassItem {
+    return ItemManager.create(
+        item = ItemManager.getCreateItem(getString("$key.material")!!),
+        name = getString("$key.name"),
+        description = getStringList("$key.lore").toMutableList(),
+        amount = getInt("$key.amount", 1),
+        modelData = getInt("$key.model-data", -1)
+    )
+}
