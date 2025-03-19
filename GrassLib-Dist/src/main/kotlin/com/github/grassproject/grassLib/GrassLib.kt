@@ -13,4 +13,5 @@ class GrassLib : JavaPlugin() {
         saveDefaultConfig()
         // DatabaseManager(plugin).init(config) // Example
     }
+
 }
