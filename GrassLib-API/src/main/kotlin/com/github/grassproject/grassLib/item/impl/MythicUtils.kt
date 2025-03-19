@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.item.impl
 
+import com.github.grassproject.grassLib.utilities.PluginUtils
 import io.lumine.mythic.bukkit.BukkitAdapter
 import io.lumine.mythic.bukkit.MythicBukkit
 import io.lumine.mythic.core.items.ItemExecutor
@@ -7,6 +8,8 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 object MythicUtils : ItemUtil {
+    init { PluginUtils.checkPlugin("MythicLib") }
+
     private val MMBukkit: MythicBukkit = MythicBukkit.inst()
     private val itemManager: ItemExecutor = MMBukkit.itemManager
 

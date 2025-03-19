@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.utilities
 
+import com.github.grassproject.grassLib.exception.NotFoundPlugin
 import org.bukkit.Bukkit
 
 object PluginUtils {
@@ -19,5 +20,11 @@ object PluginUtils {
 
     fun isEnabled(pluginName: String): Boolean {
         return Bukkit.getPluginManager().isPluginEnabled(pluginName)
+    }
+
+    fun checkPlugin(plugin:String) {
+        if (Bukkit.getPluginManager().getPlugin(plugin) == null) {
+            throw NotFoundPlugin(plugin)
+        }
     }
 }

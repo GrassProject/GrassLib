@@ -3,6 +3,8 @@ package com.github.grassproject.grassLib.builder;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
+import com.github.grassproject.grassLib.exception.NotFoundPlugin;
+import com.github.grassproject.grassLib.utilities.component.Str2Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -29,11 +31,14 @@ public class InventoryBuilder {
      *
      * @param size The size of the chest inventory (must be a multiple of 9, max 54)
      */
-    public InventoryBuilder(int size) {
+    public InventoryBuilder(int size) throws NotFoundPlugin {
         this.size = Math.min(Math.max(size, 9), 54);
         this.title = "Custom Chest";
         this.type = InventoryType.CHEST;
         this.items = new HashMap<>();
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib")==null) {
+            throw new NotFoundPlugin("ProtocolLib");
+        }
         this.protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
@@ -130,9 +135,9 @@ public class InventoryBuilder {
     private Inventory buildInventory() {
         Inventory inv;
         if (this.type == InventoryType.CHEST) {
-            inv = Bukkit.createInventory(null, this.size, this.title);
+            inv = Bukkit.createInventory(null, this.size, Str2Component.Companion.toComponent(this.title));
         } else {
-            inv = Bukkit.createInventory(null, this.type, this.title);
+            inv = Bukkit.createInventory(null, this.type, Str2Component.Companion.toComponent(this.title));
         }
 
         for (Map.Entry<Integer, ItemStack> entry : this.items.entrySet()) {
@@ -176,10 +181,9 @@ public class InventoryBuilder {
             case ANVIL -> "minecraft:anvil";
             default -> "minecraft:container";
         };
+
         packet.getStrings().write(0, inventoryType);
-
         packet.getChatComponents().write(0, com.comphenix.protocol.wrappers.WrappedChatComponent.fromText(this.title));
-
         packet.getIntegers().write(1, inv.getSize());
 
         protocolManager.sendServerPacket(player, packet);

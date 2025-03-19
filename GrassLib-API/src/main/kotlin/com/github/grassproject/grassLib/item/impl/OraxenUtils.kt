@@ -1,10 +1,12 @@
 package com.github.grassproject.grassLib.item.impl
 
+import com.github.grassproject.grassLib.utilities.PluginUtils
 import io.th0rgal.oraxen.api.OraxenItems
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 object OraxenUtils : ItemUtil {
+    init { PluginUtils.checkPlugin("Oraxen") }
     override fun getID(itemStack: ItemStack?): String? {
         return itemStack?.let { OraxenItems.getIdByItem(it) }
     }

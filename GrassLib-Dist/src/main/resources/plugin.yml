@@ -8,7 +8,8 @@ softdepend: [
   MMOItems,
   Oraxen,
   Nexo,
-  ProtoclLib
+  ProtoclLib,
+  Vault
 ]
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.10
