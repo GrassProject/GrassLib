@@ -28,7 +28,7 @@ class StringExt {
             "§5" to "<dark_purple>"
         )
 
-        fun toMMComponent(string: String): Component {
+        fun toMiniMessage(string: String): Component {
             var result = string.replace("&", "§")
             colorReplacements.forEach { (old, new) ->
                 result = result.replace(old, new)
@@ -36,11 +36,7 @@ class StringExt {
             return miniMessage.deserialize(result)
         }
 
-        fun toSimpleComponent(string: String): Component {
-            return Component.text(string.replace("&", "§"))
-        }
-
-        fun toStyledComponent(input: String): Component {
+        fun toComponent(input: String): Component {
             val components = mutableListOf<Component>()
             val currentText = StringBuilder()
             var color: TextColor = NamedTextColor.WHITE
@@ -129,14 +125,10 @@ class StringExt {
     }
 }
 
-fun String.toMMComponent(): Component {
-    return StringExt.toMMComponent(this)
+fun String.toMiniMessage(): Component {
+    return StringExt.toMiniMessage(this)
 }
 
-fun String.toSimpleComponent(): Component {
-    return StringExt.toSimpleComponent(this)
-}
-
-fun String.toStyledComponent(): Component {
-    return StringExt.toStyledComponent(this.replace("&", "§"))
+fun String.toComponent(): Component {
+    return StringExt.toComponent(this.replace("&", "§"))
 }

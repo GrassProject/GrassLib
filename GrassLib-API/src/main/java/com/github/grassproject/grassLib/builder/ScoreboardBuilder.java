@@ -24,7 +24,7 @@ public class ScoreboardBuilder {
     public ScoreboardBuilder(String boardID, Criteria type, String title, DisplaySlot slot) {
         this.boardID = boardID;
         this.type = type;
-        this.title = StringExt.Companion.toMMComponent(title);
+        this.title = StringExt.Companion.toMiniMessage(title);
         this.slot = slot;
     }
 
@@ -50,7 +50,7 @@ public class ScoreboardBuilder {
     }
 
     public ScoreboardBuilder setTitle(String title) {
-        this.title = StringExt.Companion.toMMComponent(title);
+        this.title = StringExt.Companion.toMiniMessage(title);
         return this;
     }
 

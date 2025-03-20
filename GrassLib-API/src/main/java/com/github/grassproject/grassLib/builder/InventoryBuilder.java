@@ -69,8 +69,8 @@ public class InventoryBuilder {
 
     public Inventory build() {
         Inventory inv = this.type == InventoryType.CHEST
-                ? Bukkit.createInventory(null, this.size, StringExt.Companion.toMMComponent(this.title))
-                : Bukkit.createInventory(null, this.type, StringExt.Companion.toMMComponent(this.title));
+                ? Bukkit.createInventory(null, this.size, StringExt.Companion.toMiniMessage(this.title))
+                : Bukkit.createInventory(null, this.type, StringExt.Companion.toMiniMessage(this.title));
 
         for (Map.Entry<Integer, ItemStack> entry : this.items.entrySet()) {
             inv.setItem(entry.getKey(), entry.getValue());
