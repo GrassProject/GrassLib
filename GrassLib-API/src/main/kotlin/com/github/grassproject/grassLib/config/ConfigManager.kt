@@ -8,7 +8,7 @@ object ConfigManager {
     fun getConfigFile(plugin: JavaPlugin, file:String):File = File(plugin.dataFolder, file)
     fun getConfig(file: File):YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
-    fun setValue(path:String, value:Any, file: File) {
+    fun setValue(path: String, value: Any, file: File) {
         val config= getConfig(file)
         config.set(path, value)
         config.save(file)

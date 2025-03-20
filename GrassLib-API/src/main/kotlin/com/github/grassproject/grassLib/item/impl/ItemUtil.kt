@@ -4,10 +4,9 @@ import org.bukkit.inventory.ItemStack
 
 interface ItemUtil {
 
-    fun getID(itemStack: ItemStack?): String?
+    fun getID(itemStack: ItemStack): String?
 
-    fun isCustomItem(itemStack: ItemStack?): Boolean
+    fun getCustomItem(id: String): ItemStack?
 
-    fun getCustomItem(itemName: String): ItemStack
-
+    fun isCustomItem(itemStack: ItemStack): Boolean
 }

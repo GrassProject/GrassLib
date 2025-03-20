@@ -47,8 +47,8 @@ fun ItemStack.isBoots(): Boolean = type in BOOTS_MATERIALS
 fun ItemStack.isStuff(): Boolean = type in STUFF_MATERIALS
 
 fun FileConfiguration.toGrassItem(key: String): GrassItem {
-    return ItemManager.create(
-        item = ItemManager.getCreateItem(getString("$key.material")!!),
+    return ItemUtils.create(
+        item = ItemUtils.createItem(getString("$key.material")!!)!!,
         name = getString("$key.name"),
         description = getStringList("$key.lore").toMutableList(),
         amount = getInt("$key.amount", 1),

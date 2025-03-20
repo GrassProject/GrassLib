@@ -22,9 +22,8 @@ object PluginUtils {
         return Bukkit.getPluginManager().isPluginEnabled(pluginName)
     }
 
-    fun checkPlugin(plugin:String) {
-        if (Bukkit.getPluginManager().getPlugin(plugin) == null) {
-            throw NotFoundPlugin(plugin)
-        }
+    fun checkPlugin(plugin: String): Boolean {
+        val pluginInstance = Bukkit.getPluginManager().getPlugin(plugin)
+        return pluginInstance != null && pluginInstance.isEnabled
     }
 }

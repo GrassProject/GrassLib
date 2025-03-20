@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib
 
 import com.github.grassproject.grassLib.events.PlayerChunkChangeEvent
+import com.github.grassproject.grassLib.utilities.EventUtils.call
 import com.github.grassproject.grassLib.utilities.Register
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
@@ -38,7 +39,8 @@ class GrassLib : JavaPlugin() {
                                 chunk,
                                 player.chunk,
                                 player
-                            );Bukkit.getPluginManager().callEvent(event)
+                            )
+                            event.call()
                         })
                         chunk = player.chunk
                         playerChunk[player.uniqueId] = chunk

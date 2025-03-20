@@ -4,17 +4,15 @@ import me.arcaniax.hdb.api.HeadDatabaseAPI
 import org.bukkit.inventory.ItemStack
 
 object HDBUtils : ItemUtil {
-    private val HDB: HeadDatabaseAPI = HeadDatabaseAPI()
-
-    override fun getID(itemStack: ItemStack?): String? {
-        return itemStack?.let { HDB.getItemID(it) }
+    override fun getID(itemStack: ItemStack): String? {
+        return HeadDatabaseAPI().getItemID(itemStack)
     }
 
-    override fun isCustomItem(itemStack: ItemStack?): Boolean {
-        return itemStack?.let { getID(it) != null } ?: false
+    override fun getCustomItem(id: String): ItemStack? {
+        return HeadDatabaseAPI().getItemHead(id)
     }
 
-    override fun getCustomItem(itemName: String): ItemStack {
-        return HDB.getItemHead(itemName)
+    override fun isCustomItem(itemStack: ItemStack): Boolean {
+        return getID(itemStack) != null
     }
 }

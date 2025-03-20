@@ -1,29 +1,22 @@
 package com.github.grassproject.grassLib.item.impl
 
-import com.github.grassproject.grassLib.utilities.PluginUtils
-import io.lumine.mythic.bukkit.BukkitAdapter
+import io.lumine.mythic.api.MythicProvider
 import io.lumine.mythic.bukkit.MythicBukkit
-import io.lumine.mythic.core.items.ItemExecutor
-import org.bukkit.Material
+import io.lumine.mythic.bukkit.adapters.BukkitItemStack
 import org.bukkit.inventory.ItemStack
 
 object MythicUtils : ItemUtil {
-    init { PluginUtils.checkPlugin("MythicLib") }
-
-    private val MMBukkit: MythicBukkit = MythicBukkit.inst()
-    private val itemManager: ItemExecutor = MMBukkit.itemManager
-
-    override fun getID(itemStack: ItemStack?): String? {
-        return itemManager.getMythicTypeFromItem(itemStack)
+    override fun getID(itemStack: ItemStack): String? {
+        return MythicBukkit.inst().itemManager.getMythicTypeFromItem(itemStack)
     }
 
-    override fun isCustomItem(itemStack: ItemStack?): Boolean {
-        return itemManager.isMythicItem(itemStack)
+    override fun getCustomItem(id: String): ItemStack? {
+        return (MythicProvider.get().itemManager.getItem(id).get()
+            .generateItemStack(1) as BukkitItemStack).build()
     }
 
-    override fun getCustomItem(itemName: String): ItemStack {
-        val mythicItem = itemManager.getItem(itemName)
-        return mythicItem.map { BukkitAdapter.adapt(it.generateItemStack(1)) }
-            .orElse(ItemStack(Material.AIR)) as ItemStack
+    override fun isCustomItem(itemStack: ItemStack): Boolean {
+        return MythicBukkit.inst().itemManager.isMythicItem(itemStack)
     }
+
 }
