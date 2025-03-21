@@ -20,6 +20,31 @@ fun KeyedBossBar.removeBossBar(){
     Bukkit.removeBossBar(this.key)
 }
 
-fun KeyedBossBar.updateProgress(progress: Double){
+fun KeyedBossBar.updateProgressProbability(progress: Double){
     this.progress = progress.coerceIn(0.0, 1.0)
 }
+
+fun KeyedBossBar.updateProgressPercentage(progress: Double){
+    this.progress = (progress.coerceIn(0.0, 100.0)/100.0)
+}
+
+fun KeyedBossBar.getProgressProbability(progress: Double): Double{
+    return this.progress
+}
+
+fun KeyedBossBar.getProgressPercentage(progress: Int): Int{
+    return (this.progress * 100).toInt()
+}
+
+fun KeyedBossBar.updateStyle(style: BarStyle){
+    this.style = style
+}
+
+fun KeyedBossBar.updateColor(color: BarColor){
+    this.color = color
+}
+
+fun KeyedBossBar.updateTitle(title: String){
+    this.setTitle(title)
+}
+
