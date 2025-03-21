@@ -57,6 +57,12 @@ fun FileConfiguration.toGrassItem(key: String): GrassItem {
     )
 }
 
+/*
 fun ConfigurationSection.loadGrassItem(): GrassItem? {
     return ItemUtils.fromSection(this)
+}
+*/
+
+fun GrassItem.Companion.loadGrassItem(section: ConfigurationSection?): GrassItem? {
+    return ItemUtils.fromSection(section)
 }

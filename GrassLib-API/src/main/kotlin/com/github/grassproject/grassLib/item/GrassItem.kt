@@ -12,7 +12,7 @@ class GrassItem(
     val description: MutableList<String>?,
     val amount: Int,
     val modelData: Int,
-    val flags: MutableList<ItemFlag>?,
+    // val flags: MutableList<ItemFlag>?,
 ) {
 
     fun giveItem(player: Player) {
@@ -42,18 +42,22 @@ class GrassItem(
             itemMeta.lore(lore.map { "<!i>${it}".toMiniMessage() })
         }
 
-        if (this@GrassItem.modelData > 0) modelData.let { itemMeta.setCustomModelData(it) }
-
-        flags?.apply {
-            itemMeta.addItemFlags(*this.toTypedArray())
+        if (modelData > 0) {
+            itemMeta.setCustomModelData(modelData)
         }
 
-        resultItem.itemMeta = itemMeta
+        /*flags?.apply {
+            itemMeta.addItemFlags(*this.toTypedArray())
+        }*/
+
         resultItem.amount = amount
+
+        resultItem.itemMeta = itemMeta
 
         return resultItem
     }
 
+    companion object {}
 }
 
 

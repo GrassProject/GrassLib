@@ -94,20 +94,20 @@ object ItemUtils {
         if (section.contains("lore")) {
             lore = section.getStringList("lore")
         }
-        val flags: MutableList<ItemFlag> = ArrayList()
+        /*val flags: MutableList<ItemFlag> = ArrayList()
         if (section.contains("flags")) {
             for (flag in section.getStringList("flags")) {
                 val itemFlag = ItemFlag.valueOf(flag.uppercase())
                 flags.add(itemFlag)
             }
-        }
+        }*/
         return createItem(
             material,
-            section.getString("name"),
+            section.getString("display-name"),
             lore,
             section.getInt("amount", 1),
             section.getInt("model-data", -1),
-            flags
+            // flags
         )
     }
 
@@ -117,7 +117,7 @@ object ItemUtils {
         description: MutableList<String>? = null,
         amount: Int = 1,
         modelData: Int = -1,
-        flags: MutableList<ItemFlag>? = null,
+        // flags: MutableList<ItemFlag>? = null,
     ): GrassItem {
         return GrassItem(
             item,
@@ -125,7 +125,7 @@ object ItemUtils {
             description,
             amount,
             modelData,
-            flags
+            // flags
         )   
     }
 
@@ -135,7 +135,7 @@ object ItemUtils {
         description: MutableList<String>?,
         amount: Int,
         modelData: Int,
-        flags: MutableList<ItemFlag>?,
+        // flags: MutableList<ItemFlag>?,
     ): GrassItem? {
         val itemStack = createItem(namespace) ?: return null
         return create(
@@ -144,7 +144,7 @@ object ItemUtils {
             description,
             amount,
             modelData,
-            flags
+            // flags
         )
     }
 
