@@ -66,3 +66,5 @@ fun ConfigurationSection.loadGrassItem(): GrassItem? {
 fun GrassItem.Companion.loadGrassItem(section: ConfigurationSection?): GrassItem? {
     return ItemUtils.fromSection(section)
 }
+
+fun ItemStack.toGrassItem(): GrassItem = ItemUtils.create(this)
