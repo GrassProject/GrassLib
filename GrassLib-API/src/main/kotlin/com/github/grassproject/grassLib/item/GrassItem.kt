@@ -12,7 +12,7 @@ class GrassItem(
     val description: MutableList<String>?,
     val amount: Int,
     val modelData: Int,
-    // val flags: MutableList<ItemFlag>?,
+    val flags: MutableList<ItemFlag>?,
 ) {
 
     fun giveItem(player: Player) {
@@ -46,9 +46,9 @@ class GrassItem(
             itemMeta.setCustomModelData(modelData)
         }
 
-        /*flags?.apply {
+        flags?.apply {
             itemMeta.addItemFlags(*this.toTypedArray())
-        }*/
+        }
 
         resultItem.amount = amount
 
