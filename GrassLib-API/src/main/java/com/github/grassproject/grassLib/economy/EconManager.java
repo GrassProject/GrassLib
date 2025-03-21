@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.econ;
+package com.github.grassproject.grassLib.economy;
 
 import com.github.grassproject.grassLib.exception.NotFoundPlugin;
 import net.milkbowl.vault.economy.Economy;

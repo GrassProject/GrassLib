@@ -35,12 +35,11 @@ class GrassLib : JavaPlugin() {
                     var chunk = playerChunk[player.uniqueId]
                     if (chunk != player.chunk) {
                         Bukkit.getScheduler().runTask(this@GrassLib, Runnable {
-                            val event = PlayerChunkChangeEvent(
+                            PlayerChunkChangeEvent(
                                 chunk,
                                 player.chunk,
                                 player
-                            )
-                            event.call()
+                            ).call()
                         })
                         chunk = player.chunk
                         playerChunk[player.uniqueId] = chunk

@@ -1,13 +1,15 @@
 package com.github.grassproject.grassLib.item
 
 import com.github.grassproject.grassLib.item.impl.*
-import de.tr7zw.changeme.nbtapi.NBT
-import de.tr7zw.changeme.nbtapi.iface.ReadableNBT
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.plugin.java.JavaPlugin
+import java.io.Closeable
 
 object ItemUtils {
 
@@ -97,4 +99,24 @@ object ItemUtils {
         )   
     }
 
+    private fun addListener(plugin: JavaPlugin, listener: Listener): Closeable {
+        plugin.server.pluginManager.registerEvents(listener, plugin)
+        return Closeable {
+            org.bukkit.event.HandlerList.unregisterAll(listener)
+        }
+    }
+
+    fun ItemStack.onInteraction(
+        plugin:JavaPlugin,
+        listener: (Player, ItemStack, PlayerInteractEvent) -> Unit
+    ): Closeable {
+        return addListener(plugin, object : Listener {
+            @EventHandler
+            fun PlayerInteractEvent.onClick() {
+                if (item==null) return
+                if (!(item?.isSimilar(this@onInteraction) ?: return)) return
+                listener(player, item ?: return, this)
+            }
+        })
+    }
 }

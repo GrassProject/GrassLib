@@ -21,6 +21,7 @@ public class InventoryExample {
         player.openInventory(inv); // Open the inventory for the player
     }
 
+    
     // 📌 Open a custom hopper inventory
     public void openCustomHopperInventory(Player player) {
         // Create a hopper type inventory (default size is 5 slots)
