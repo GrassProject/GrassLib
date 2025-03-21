@@ -1,5 +1,5 @@
 ```java
-
+import com.github.grassproject.grassLib.builder.InventoryBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -21,7 +21,7 @@ public class InventoryExample {
         player.openInventory(inv); // Open the inventory for the player
     }
 
-
+    
     // 📌 Open a custom hopper inventory
     public void openCustomHopperInventory(Player player) {
         // Create a hopper type inventory (default size is 5 slots)

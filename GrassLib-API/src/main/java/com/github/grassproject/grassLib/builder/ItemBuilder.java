@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 /**
  * @author apo2073
  * @apiNote ItemBuilder
- * */
+* */
 public class ItemBuilder {
     private final ItemStack itemStack;
     private Integer amount;

@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.economy;
 
+import com.github.grassproject.grassLib.exception.NotFoundPlugin;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -7,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EconManager {
     private static Economy econ;
-    public static boolean setupEcon(JavaPlugin plugin) throws NotFoundPlugina {
+    public static boolean setupEcon(JavaPlugin plugin) throws NotFoundPlugin {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") == null) {
-            throw new NotFoundPlugina("Vault");
+            throw new NotFoundPlugin("Vault");
         }
         RegisteredServiceProvider<Economy> rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;

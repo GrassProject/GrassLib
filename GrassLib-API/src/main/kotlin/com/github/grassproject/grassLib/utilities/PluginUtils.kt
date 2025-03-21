@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.utilities
 
+import com.github.grassproject.grassLib.exception.NotFoundPlugin
 import org.bukkit.Bukkit
 
 object PluginUtils {

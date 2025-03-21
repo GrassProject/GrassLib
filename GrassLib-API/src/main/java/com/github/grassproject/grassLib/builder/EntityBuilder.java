@@ -45,7 +45,7 @@ public class EntityBuilder<T extends Entity> {
 
     /**
      * @param location The Location to Spawn Entity
-     * */
+    * */
     public EntityBuilder<T> setLocation(Location location) {
         this.location = location;
         return this;
