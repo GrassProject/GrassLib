@@ -3,10 +3,12 @@ package com.github.grassproject.grassLib.item
 import com.github.grassproject.grassLib.item.impl.*
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.Closeable
@@ -83,20 +85,67 @@ object ItemUtils {
 
     private fun getNamespacedKey(namespace: String, key: String): NamespacedKey = NamespacedKey(namespace, key)
 
+    fun fromSection(
+        section: ConfigurationSection?
+    ): GrassItem? {
+        section ?: return null
+        val material = section.getString("material", "STONE")!!
+        var lore: MutableList<String>? = null
+        if (section.contains("lore")) {
+            lore = section.getStringList("lore")
+        }
+        val flags: MutableList<ItemFlag> = ArrayList()
+        if (section.contains("flags")) {
+            for (flag in section.getStringList("flags")) {
+                val itemFlag = ItemFlag.valueOf(flag.uppercase())
+                flags.add(itemFlag)
+            }
+        }
+        return createItem(
+            material,
+            section.getString("name"),
+            lore,
+            section.getInt("amount", 1),
+            section.getInt("model-data", -1),
+            flags
+        )
+    }
+
     fun create(
         item: ItemStack,
         name: String? = null,
         description: MutableList<String>? = null,
         amount: Int = 1,
-        modelData: Int = -1
+        modelData: Int = -1,
+        flags: MutableList<ItemFlag>? = null,
     ): GrassItem {
         return GrassItem(
             item,
             name,
             description,
             amount,
-            modelData
+            modelData,
+            flags
         )   
+    }
+
+    private fun createItem(
+        namespace: String,
+        name: String?,
+        description: MutableList<String>?,
+        amount: Int,
+        modelData: Int,
+        flags: MutableList<ItemFlag>?,
+    ): GrassItem? {
+        val itemStack = createItem(namespace) ?: return null
+        return create(
+            itemStack,
+            name,
+            description,
+            amount,
+            modelData,
+            flags
+        )
     }
 
     private fun addListener(plugin: JavaPlugin, listener: Listener): Closeable {

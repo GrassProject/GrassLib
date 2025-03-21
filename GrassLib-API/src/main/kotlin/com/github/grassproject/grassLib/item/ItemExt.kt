@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib.item
 
 import org.bukkit.Material
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.inventory.ItemStack
 
@@ -54,4 +55,8 @@ fun FileConfiguration.toGrassItem(key: String): GrassItem {
         amount = getInt("$key.amount", 1),
         modelData = getInt("$key.model-data", -1)
     )
+}
+
+fun ConfigurationSection.loadGrassItem(): GrassItem? {
+    return ItemUtils.fromSection(this)
 }

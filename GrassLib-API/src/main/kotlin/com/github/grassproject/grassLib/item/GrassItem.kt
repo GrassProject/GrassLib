@@ -2,6 +2,7 @@ package com.github.grassproject.grassLib.item
 
 import com.github.grassproject.grassLib.utilities.component.toMiniMessage
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -11,6 +12,7 @@ class GrassItem(
     val description: MutableList<String>?,
     val amount: Int,
     val modelData: Int,
+    val flags: MutableList<ItemFlag>?,
 ) {
 
     fun giveItem(player: Player) {
@@ -24,9 +26,12 @@ class GrassItem(
         player.inventory.addItem(item)
     }
 
+    fun getUnmodifiedItem(): ItemStack {
+        return item
+    }
 
     fun getItem(): ItemStack {
-        val resultItem = item.clone()
+        val resultItem = getUnmodifiedItem()
         val itemMeta: ItemMeta = resultItem.itemMeta ?: return resultItem
 
         name?.let { displayName ->
@@ -37,7 +42,11 @@ class GrassItem(
             itemMeta.lore(lore.map { "<!i>${it}".toMiniMessage() })
         }
 
-        modelData.let { itemMeta.setCustomModelData(it) }
+        if (this@GrassItem.modelData > 0) modelData.let { itemMeta.setCustomModelData(it) }
+
+        flags?.apply {
+            itemMeta.addItemFlags(*this.toTypedArray())
+        }
 
         resultItem.itemMeta = itemMeta
         resultItem.amount = amount
