@@ -24,8 +24,8 @@ fun KeyedBossBar.setProgressProbability(progress: Double){
     this.progress = progress.coerceIn(0.0, 1.0)
 }
 
-fun KeyedBossBar.setProgressPercentage(progress: Double){
-    this.progress = (progress.coerceIn(0.0, 100.0)/100.0)
+fun KeyedBossBar.setProgressPercentage(progress: Int){
+    this.progress = (progress.coerceIn(0, 100)/100.0)
 }
 
 fun KeyedBossBar.getProgressProbability(): Double{
