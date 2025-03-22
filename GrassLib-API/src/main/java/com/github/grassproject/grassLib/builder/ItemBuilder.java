@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 * */
 public class ItemBuilder {
     private final ItemStack itemStack;
-    private Integer amount;
+    private Integer amount=1;
     private ItemMeta itemMeta;
     private List<Component> lore;
 

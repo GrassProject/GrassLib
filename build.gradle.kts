@@ -1,10 +1,8 @@
-import com.vanniktech.maven.publish.SonatypeHost
-
 plugins {
     kotlin("jvm") version "2.1.20"
     id("com.gradleup.shadow") version "9.0.0-beta10"
     id("maven-publish")
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    id("signing")
 }
 
 group = "com.github.grassproject"
@@ -15,18 +13,80 @@ allprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "com.gradleup.shadow")
+    apply(plugin = "signing")
     repositories {
         mavenCentral()
-        maven("https://repo.papermc.io/repository/maven-public/") // Paper
-        maven("https://mvn.lumine.io/repository/maven-public/") // MythicMob
-        maven("https://maven.devs.beer/") // ItemsAdder
-        maven("https://repo.nexomc.com/releases") // Nexo
-        maven("https://repo.oraxen.com/releases") // Oraxen
-        maven("https://nexus.phoenixdevt.fr/repository/maven-public/") // MMOItems - MythicLib
-        maven("https://repo.codemc.io/repository/maven-public/") // NBT-API
-        maven("https://repo.dmulloy2.net/repository/public/") // protocolLib
-        maven("https://jitpack.io") // Vault
+        maven("https://repo.papermc.io/repository/maven-public/")
+        maven("https://mvn.lumine.io/repository/maven-public/")
+        maven("https://maven.devs.beer/")
+        maven("https://repo.nexomc.com/releases")
+        maven("https://repo.oraxen.com/releases")
+        maven("https://nexus.phoenixdevt.fr/repository/maven-public/")
+        maven("https://repo.codemc.io/repository/maven-public/")
+        maven("https://repo.dmulloy2.net/repository/public/")
+        maven("https://jitpack.io")
     }
+
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                from(components["java"])
+                groupId = groupId
+                artifactId = "GrassLib"
+                version = version
+
+                pom {
+                    name.set("GrassLib")
+                    description.set("Library for Minecraft plugin")
+                    developers {
+                        developer {
+                            id.set("apo2073")
+                            name.set("APO2073")
+                            email.set("apo2073@outlook.com")
+                        }
+                        developer {
+                            id.set("mrjimin")
+                            name.set("Jimin")
+                            email.set("aa090402@naver.com")
+                        }
+                        developer {
+                            id.set("wayggstar")
+                            name.set("Wayggstar")
+                            email.set("wayggstar@gmail.com")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git:git://github.com/GrassProject/GrassLib.git")
+                        developerConnection.set("scm:git:ssh://github.com/GrassProject/grasslib.git")
+                        url.set("https://github.com/GrassProject/GrassLib")
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "sonatype"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = property("mavenCentralUserName").toString()
+                    password = property("mavenCentralPassword").toString()
+                }
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(
+            property("signing.keyId") as String?,
+            property("signing.secretKeyRingFile") as String?,
+//            property("signing.inMemoryKey") as String?,
+            property("signing.password") as String?
+        )
+        sign(publishing.publications["maven"])
+    }
+//    signing {
+//        sign(publishing.publications["maven"])
+//    }
 }
 
 kotlin {
@@ -37,64 +97,53 @@ tasks.build {
     dependsOn("shadowJar")
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            register<MavenPublication>("release") {
-                from(components["java"])
-                groupId = groupId
-                artifactId = "GrassLib"
-                version = version
-
-                pom {
-                    name.set("GrassLib")
-                    description.set("Library for Minecraft plugin")
-                }
-            }
-        }
-    }
-}
-
-mavenPublishing {
-    coordinates(
-        groupId = project.group as String,
-        artifactId = project.name,
-        version = project.version as String
-    )
-
-    pom {
-        name.set("GrassLib")
-        description.set("Library for Minecraft plugin")
-        url.set("https://github.com/GrassProject/GrassLib")
-
-        licenses {
-            license {
-                name.set("MIT License")
-                url.set("https://opensource.org/licenses/MIT")
-            }
-        }
-
-        developers {
-            developer {
-                id.set("apo2073")
-                name.set("APO2073")
-                email.set("apo2073@outlook.com")
-            }
-            developer {
-                id.set("mrjimin")
-                name.set("Jimin")
-                email.set("aa090402@naver.com")
-            }
-            developer {
-                id.set("wayggstar")
-                name.set("Wayggstar")
-                email.set("wayggstar@gmail.com")
-            }
-        }
-    }
-
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
-    // TODO: make configuration for signing and GPG key
-    // https://velog.io/@kshired/%EC%A7%81%EC%A0%91-%EC%A0%9C%EC%9E%91%ED%95%9C-Kotlin-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EB%A5%BC-Maven-Central%EC%97%90-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0
-} // ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
+//mavenPublishing {
+//    coordinates(
+//        groupId = project.group as String,
+//        artifactId = project.name,
+//        version = project.version as String
+//    )
+//
+//    pom {
+//        name.set("GrassLib")
+//        description.set("Library for Minecraft plugin")
+//        url.set("https://github.com/GrassProject/GrassLib")
+//
+//        licenses {
+//            license {
+//                name.set("MIT License")
+//                url.set("https://opensource.org/licenses/MIT")
+//            }
+//        }
+//
+//        developers {
+//            developer {
+//                id.set("apo2073")
+//                name.set("APO2073")
+//                email.set("apo2073@outlook.com")
+//            }
+//            developer {
+//                id.set("mrjimin")
+//                name.set("Jimin")
+//                email.set("aa090402@naver.com")
+//            }
+//            developer {
+//                id.set("wayggstar")
+//                name.set("Wayggstar")
+//                email.set("wayggstar@gmail.com")
+//            }
+//        }
+//
+//        scm {
+//            connection.set("scm:git:git://github.com/GrassProject/GrassLib.git")
+//            developerConnection.set("scm:git:ssh://github.com/GrassProject/grasslib.git")
+//            url.set("https://github.com/GrassProject/GrassLib")
+//        }
+//    }
+//
+//    signAllPublications()
+//}
+//
+//signing {
+//    sign(publishing.publications)
+//}
