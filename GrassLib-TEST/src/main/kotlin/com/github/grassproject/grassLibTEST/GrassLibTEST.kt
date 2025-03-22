@@ -3,12 +3,11 @@ package com.github.grassproject.grassLibTEST
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLibTEST : JavaPlugin() {
-
-    override fun onEnable() {
-        // Plugin startup logic
+    companion object {
+        lateinit var plugin:GrassLibTEST
+            private set
     }
-
-    override fun onDisable() {
-        // Plugin shutdown logic
+    override fun onEnable() {
+        plugin=this
     }
 }

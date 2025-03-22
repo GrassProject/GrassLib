@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+    implementation(project(":GrassLib-API"))
 }
 
 val targetJavaVersion = 21
@@ -32,5 +33,23 @@ tasks.processResources {
     filteringCharset = "UTF-8"
     filesMatching("plugin.yml") {
         expand(props)
+    }
+}
+
+tasks.shadowJar {
+    archiveFileName.set("GrassLib-test.jar")
+    archiveClassifier.set("all")
+    mergeServiceFiles()
+
+    exclude("kotlin/**")
+    dependencies {
+        include(project(":GrassLib-API"))
+    }
+    // from(rootProject.file("LICENSE"))
+
+//      destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+//    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
+    minimize {
+        exclude(dependency("com.github.grassproject.*:.*"))
     }
 }

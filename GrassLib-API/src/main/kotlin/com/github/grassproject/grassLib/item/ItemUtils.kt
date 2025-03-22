@@ -148,7 +148,7 @@ object ItemUtils {
         )
     }
 
-    private fun addListener(plugin: JavaPlugin, listener: Listener): Closeable {
+    internal fun addListener(plugin: JavaPlugin, listener: Listener): Closeable {
         plugin.server.pluginManager.registerEvents(listener, plugin)
         return Closeable {
             org.bukkit.event.HandlerList.unregisterAll(listener)
