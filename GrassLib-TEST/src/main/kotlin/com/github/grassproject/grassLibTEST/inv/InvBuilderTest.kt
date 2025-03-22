@@ -12,9 +12,11 @@ class InvBuilderTest {
     fun anvil(player:Player) {
         val inv=InventoryBuilder()
             .setType(InventoryType.ANVIL).setTitle("test anvl gui")
-            .build().apply { this.setItem(0, ItemBuilder(Material.PAPER).build()) }
-            .onClick(GrassLibTEST.plugin) { _, _->
-                println("TEST SUCCESS")
+            .build().apply {
+                this.setItem(0, ItemBuilder(Material.PAPER).build())
+                onClick(GrassLibTEST.plugin) { _, _->
+                    println("TEST SUCCESS")
+                }
             }
     }
 }
