@@ -22,8 +22,13 @@ public class EconManager {
         return econ;
     }
 
+    public static double getBalance(OfflinePlayer player) {
+        Economy economy = getEcon();
+        return economy.getBalance(player);
+    }
+
     public static void takeMoney(OfflinePlayer player, double amount) {
-        Economy economy=getEcon();
+        Economy economy = getEcon();
         economy.withdrawPlayer(player, amount);
     }
 

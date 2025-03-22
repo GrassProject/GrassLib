@@ -19,6 +19,8 @@ dependencies {
     compileOnly("com.arcaniax","HeadDatabase-API", "1.3.2") // HeadDatabase
     compileOnly("com.comphenix.protocol","ProtocolLib","5.3.0") // ProtocolLib
     compileOnly("com.github.MilkBowl", "VaultAPI","1.7.1") // Vault
+    compileOnly("su.nightexpress.coinsengine", "CoinsEngine","2.4.1") // CoinsEngine
+    compileOnly("com.sk89q.worldguard", "worldguard-bukkit", "7.0.13") // WorldGuard
 
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
     implementation("com.zaxxer","HikariCP","6.2.1") // HikariCP

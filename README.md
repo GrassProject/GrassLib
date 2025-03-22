@@ -65,6 +65,7 @@ import com.github.grassproject.grassLib.economy.EconManager;
 EconManager.setupEcon(JavaPlugin); // setup economy
 Economy econ= EconManager.getEcon(); // get economy
 
+EconManager.getBalance(OfflinePlayer); // get money from player
 EconManager.takeMoney(OfflinePlayer, double); // take money from player
 EconManager.giveMoney(OfflinePlayer, double); // give money to player
 EconManager.sendMoney(OfflinePlayer, OfflinePlayer, double); // send money to player

@@ -25,6 +25,8 @@ allprojects {
         maven("https://repo.codemc.io/repository/maven-public/")
         maven("https://repo.dmulloy2.net/repository/public/")
         maven("https://jitpack.io")
+        maven("https://repo.nightexpressdev.com/releases")
+        maven("https://maven.enginehub.org/repo/")
     }
 
     publishing {

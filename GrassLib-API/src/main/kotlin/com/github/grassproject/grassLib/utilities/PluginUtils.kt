@@ -18,8 +18,8 @@ object PluginUtils {
         return plugin != null && plugin.isEnabled
     }*/
 
-    fun isEnabled(pluginName: String): Boolean {
-        return Bukkit.getPluginManager().isPluginEnabled(pluginName)
+    fun isEnabled(plugin: String): Boolean {
+        return Bukkit.getPluginManager().isPluginEnabled(plugin)
     }
 
     fun checkPlugin(plugin: String): Boolean {
