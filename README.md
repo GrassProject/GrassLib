@@ -132,6 +132,6 @@ ItemStack.onInteraction(JavaPlugin) {player, item, e ->
 ```java
 ConfigManager.getConfigFile(JavaPlugin, String); // get config file
 ConfigManager.getConfig(file); // get config
-ConfigManager.setValue(path, value, file); // set value to config
+ConfigManager.setValue(file, path, value); // set value to config
 ```
 
