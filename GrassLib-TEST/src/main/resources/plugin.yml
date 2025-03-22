@@ -1,0 +1,7 @@
+name: GrassLib-TEST
+version: ${version}
+main: com.github.grassproject.grassLibTEST.GrassLibTEST
+api-version: '1.21'
+authors: [GrassProject]
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20
