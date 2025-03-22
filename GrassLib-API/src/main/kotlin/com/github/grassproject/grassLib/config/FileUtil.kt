@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
 
-object ConfigManager {
+object FileUtil {
     fun getConfigFile(plugin: JavaPlugin, file: String): File = File(plugin.dataFolder, file)
     fun getConfig(file: File): YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
@@ -15,17 +15,17 @@ object ConfigManager {
         config.save(file)
     }
 
-    fun createFile(plugin: JavaPlugin, file: String): File {
-        val configFile = getConfigFile(plugin, file)
-        if (!configFile.exists()) {
-            configFile.parentFile.mkdirs()
-            try {
-                configFile.createNewFile()
-            } catch (e: IOException) {
-                plugin.logger.severe("Failed to create config file: ${configFile.path}")
-            }
-        }
-        return configFile
-    }
+    fun create(file: File): Boolean {
+        if (file.exists()) return false
 
+        val parent = file.parentFile ?: return false
+
+        parent.mkdirs()
+        try {
+            return file.createNewFile()
+        } catch (exception: IOException) {
+            exception.printStackTrace()
+            return false
+        }
+    }
 }
