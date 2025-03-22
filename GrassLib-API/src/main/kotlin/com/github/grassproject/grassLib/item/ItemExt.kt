@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.item
 
+import io.lumine.mythic.bukkit.utils.lib.jooq.impl.QOM.Ge
 import org.bukkit.Material
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.FileConfiguration
@@ -65,6 +66,10 @@ fun ConfigurationSection.loadGrassItem(): GrassItem? {
 
 fun GrassItem.Companion.loadGrassItem(section: ConfigurationSection?): GrassItem? {
     return ItemUtils.fromSection(section)
+}
+
+fun GrassItem.toItemStack(): ItemStack {
+    return this.getItem()
 }
 
 fun ItemStack.toGrassItem(): GrassItem = ItemUtils.create(this)

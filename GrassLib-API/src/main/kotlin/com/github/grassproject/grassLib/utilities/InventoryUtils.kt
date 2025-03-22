@@ -14,11 +14,26 @@ object InventoryUtils {
         plugin: JavaPlugin,
         listener: (Player, InventoryClickEvent) -> Unit
     ): Closeable {
-        val inv=this
+        val inv = this
         return addListener(plugin, object : Listener {
             @EventHandler
             fun InventoryClickEvent.onClick() {
-                if (this.inventory!=inv) return
+                if (this.inventory != inv) return
+                listener(whoClicked as? Player ?: return, this)
+            }
+        })
+    }
+
+    fun Inventory.onItemClick(
+        plugin: JavaPlugin,
+        listener: (Player, InventoryClickEvent) -> Unit
+    ): Closeable {
+        val inv = this
+        return addListener(plugin, object : Listener {
+            @EventHandler
+            fun InventoryClickEvent.onClick() {
+                if (this.inventory != inv) return
+                if (this.currentItem == null) return
                 listener(whoClicked as? Player ?: return, this)
             }
         })

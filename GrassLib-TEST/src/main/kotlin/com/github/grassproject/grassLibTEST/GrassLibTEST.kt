@@ -1,5 +1,8 @@
 package com.github.grassproject.grassLibTEST
 
+import com.github.grassproject.grassLib.utilities.Register
+import com.github.grassproject.grassLibTEST.event.PlayerJoinListener
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLibTEST : JavaPlugin() {
@@ -9,5 +12,7 @@ class GrassLibTEST : JavaPlugin() {
     }
     override fun onEnable() {
         plugin=this
+
+        Register(this).resistEventListener(PlayerJoinListener())
     }
 }

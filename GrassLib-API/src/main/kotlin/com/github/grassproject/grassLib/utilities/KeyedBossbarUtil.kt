@@ -5,9 +5,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.boss.KeyedBossBar
-import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
-
 
 fun JavaPlugin.createBossBar(key: String, title: String, color: BarColor, style: BarStyle): KeyedBossBar{
     val namespacedKey = NamespacedKey(this, key)
@@ -47,4 +45,3 @@ fun KeyedBossBar.updateColor(color: BarColor){
 fun KeyedBossBar.updateTitle(title: String){
     this.setTitle(title)
 }
-
