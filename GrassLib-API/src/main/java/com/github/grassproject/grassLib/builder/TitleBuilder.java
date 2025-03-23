@@ -14,8 +14,8 @@ import java.time.Duration;
 public class TitleBuilder {
     private final BukkitAudiences audiences;
     private final NamespacedKey key;
-    private String title = "";
-    private String subTitle = "";
+    private Component title = Component.empty();
+    private Component subTitle = Component.empty();
     private long fadeInSeconds = 0L;
     private long staySeconds = 0L;
     private long fadeOutSeconds = 0L;
@@ -29,13 +29,23 @@ public class TitleBuilder {
         return key;
     }
 
-    public TitleBuilder title(String titleText) {
-        this.title = titleText != null ? titleText : "";
+    public TitleBuilder title(String title) {
+        this.title = title != null ? StringExt.Companion.toMiniMessage(title) : Component.empty();
         return this;
     }
 
-    public TitleBuilder subTitle(String subTitleText) {
-        this.subTitle = subTitleText != null ? subTitleText : "";
+    public TitleBuilder title(Component title) {
+        this.title = title != null ? title : Component.empty();
+        return this;
+    }
+
+    public TitleBuilder subTitle(String subTitle) {
+        this.subTitle = subTitle != null ? StringExt.Companion.toMiniMessage(subTitle) : Component.empty();
+        return this;
+    }
+
+    public TitleBuilder subTitle(Component subTitle) {
+        this.subTitle = subTitle != null ? subTitle : Component.empty();
         return this;
     }
 
@@ -55,14 +65,12 @@ public class TitleBuilder {
     }
 
     private Title build() {
-        Component titleComponent = StringExt.Companion.toMiniMessage(this.title);
-        Component subtitleComponent = StringExt.Companion.toMiniMessage(this.subTitle);
         Title.Times times = Title.Times.times(
                 Duration.ofSeconds(fadeInSeconds),
                 Duration.ofSeconds(staySeconds),
                 Duration.ofSeconds(fadeOutSeconds)
         );
-        return Title.title(titleComponent, subtitleComponent, times);
+        return Title.title(this.title, this.subTitle, times);
     }
 
     public void sendToPlayer(Player player) {
@@ -79,12 +87,20 @@ public class TitleBuilder {
         audiences.player(player).clearTitle();
     }
 
-    public void setTitle(String titleText) {
-        this.title = titleText != null ? titleText : "";
+    public void setTitle(String title) {
+        this.title = title != null ? StringExt.Companion.toMiniMessage(title) : Component.empty();
     }
 
-    public void setSubTitle(String subTitleText) {
-        this.subTitle = subTitleText != null ? subTitleText : "";
+    public void setTitle(Component title) {
+        this.title = title != null ? title : Component.empty();
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle != null ? StringExt.Companion.toMiniMessage(subTitle) : Component.empty();
+    }
+
+    public void setSubTitle(Component subTitle) {
+        this.subTitle = subTitle != null ? subTitle : Component.empty();
     }
 
     public void removeTitle() {
@@ -92,5 +108,4 @@ public class TitleBuilder {
             audiences.player(player).clearTitle();
         }
     }
-
 }
