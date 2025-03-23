@@ -1,5 +1,7 @@
 package com.github.grassproject.grassLib.hook
 
+import com.github.grassproject.grassLib.exception.NotFoundPlugin
+import com.github.grassproject.grassLib.utilities.PluginUtils
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.world.World as WEWorld
 import com.sk89q.worldguard.WorldGuard
@@ -13,7 +15,11 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 
 object WorldGuardHook {
-
+    init {
+        if (!PluginUtils.checkPlugin("WorldGuard")) {
+            throw NotFoundPlugin("WorldGuard")
+        }
+    }
     fun isInRegion(entity: Entity, region: String): Boolean {
         return getRegion(entity).equals(region, ignoreCase = true)
     }
