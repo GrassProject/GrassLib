@@ -1,10 +1,18 @@
 package com.github.grassproject.grassLib.hook
 
+import com.github.grassproject.grassLib.exception.NotFoundPlugin
+import com.github.grassproject.grassLib.utilities.PluginUtils
 import org.bukkit.entity.Player
 import su.nightexpress.coinsengine.api.CoinsEngineAPI
 import su.nightexpress.nightcore.util.NumberUtil
 
 object CoinsEngineHook {
+
+    init {
+        if (!PluginUtils.checkPlugin("CoinsEngine")) {
+            throw NotFoundPlugin("CoinsEngine")
+        }
+    }
 
     fun isValidCurrency(name: String): Boolean {
         return CoinsEngineAPI.getCurrency(name) != null
