@@ -16,6 +16,7 @@ allprojects {
     apply(plugin = "signing")
     repositories {
         mavenCentral()
+        mavenLocal()
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://mvn.lumine.io/repository/maven-public/")
         maven("https://maven.devs.beer/")
@@ -29,63 +30,15 @@ allprojects {
         maven("https://maven.enginehub.org/repo/")
     }
 
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["java"])
-                groupId = groupId
-                artifactId = "GrassLib"
-                version = version
-
-                pom {
-                    name.set("GrassLib")
-                    description.set("Library for Minecraft plugin")
-                    developers {
-                        developer {
-                            id.set("apo2073")
-                            name.set("APO2073")
-                            email.set("apo2073@outlook.com")
-                        }
-                        developer {
-                            id.set("mrjimin")
-                            name.set("Jimin")
-                            email.set("aa090402@naver.com")
-                        }
-                        developer {
-                            id.set("wayggstar")
-                            name.set("Wayggstar")
-                            email.set("wayggstar@gmail.com")
-                        }
-                    }
-                    scm {
-                        connection.set("scm:git:git://github.com/GrassProject/GrassLib.git")
-                        developerConnection.set("scm:git:ssh://github.com/GrassProject/grasslib.git")
-                        url.set("https://github.com/GrassProject/GrassLib")
-                    }
-                }
-            }
-        }
-        repositories {
-            maven {
-                name = "sonatype"
-                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                credentials {
-                    username = property("mavenCentralUserName").toString()
-                    password = property("mavenCentralPassword").toString()
-                }
-            }
-        }
-    }
-
-    signing {
-        useInMemoryPgpKeys(
-            property("signing.keyId") as String?,
-            property("signing.secretKeyRingFile") as String?,
-//            property("signing.inMemoryKey") as String?,
-            property("signing.password") as String?
-        )
-        sign(publishing.publications["maven"])
-    }
+//    signing {
+//        useInMemoryPgpKeys(
+//            property("signing.keyId") as String?,
+//            property("signing.secretKeyRingFile") as String?,
+////            property("signing.inMemoryKey") as String?,
+//            property("signing.password") as String?
+//        )
+//        sign(publishing.publications["maven"])
+//    }
 //    signing {
 //        sign(publishing.publications["maven"])
 //    }

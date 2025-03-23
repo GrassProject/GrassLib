@@ -6,16 +6,10 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
-repositories {
-    mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        name = "papermc-repo"
-    }
-}
-
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation(project(":GrassLib-API"))
+//    implementation("com.github.grassproject:GrassLib:1.0")
 }
 
 val targetJavaVersion = 21
