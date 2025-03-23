@@ -10,7 +10,7 @@ class PlayerJoinListener : Listener {
 
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        val inv = InvBuilderTest(GrassLibTEST.plugin).anvil(event.player)
+        val inv = InvBuilderTest().anvil(event.player)
         println(inv)
     }
 }

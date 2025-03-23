@@ -12,23 +12,23 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
 
-class InvBuilderTest(
-    private val plugin: GrassLibTEST
-) {
-    fun anvil(player:Player) {
-        val inv=InventoryBuilder()
+class InvBuilderTest {
+    fun anvil(player: Player) {
+        val inv = InventoryBuilder()
             .setType(InventoryType.ANVIL)
-            .build().apply {
-                this.setItem(0, ItemStack(Material.PAPER))
-                this.setItem(1, ItemUtils.createItem("nexo:arm_chair"))
-                onClick(plugin, object : InventoryUtils.InventoryClickListener {
-                    override fun onClick(player: Player, event: InventoryClickEvent) {
-                        event.isCancelled = true
-                        if (event.clickedInventory?.type == InventoryType.PLAYER) return
-
-                    }
-                })
+            .setItem(0, ItemStack(Material.PAPER))
+            .setItem(1, ItemUtils.createItem("nexo:arm_chair"))
+            .build()
+            .apply {
+                onItemClick(GrassLibTEST.plugin) { p, event ->
+                    if (event.clickedInventory?.type == InventoryType.PLAYER) return@onItemClick
+                    println("TEST SUCCESS")
+                    println("Clicked item: ${event.currentItem?.type ?: "None"}")
+                    println("Slot: ${event.slot}")
+                    println("Cursor item: ${event.cursor?.type ?: "None"}")
+                }
             }
+
         player.openInventory(inv)
     }
 }

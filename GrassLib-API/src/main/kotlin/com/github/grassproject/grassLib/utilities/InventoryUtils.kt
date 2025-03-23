@@ -1,36 +1,36 @@
-package com.github.grassproject.grassLib.utilities;
+package com.github.grassproject.grassLib.utilities
 
-import com.github.grassproject.grassLib.item.ItemUtils.addListener;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-import java.io.Closeable;
-import java.util.function.Consumer;
+import com.github.grassproject.grassLib.item.ItemUtils.addListener
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.inventory.ClickType
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
+import org.bukkit.plugin.java.JavaPlugin
+import java.io.Closeable
+import java.util.function.Consumer
 
 object InventoryUtils {
 
-    interface InventoryClickListener {
+    fun interface InventoryClickListener {
         fun onClick(player: Player, event: InventoryClickEvent)
     }
 
-    interface InventoryCloseListener {
+    fun interface InventoryCloseListener {
         fun onClose(player: Player, event: InventoryCloseEvent)
     }
 
-    interface InventoryOpenListener {
+    fun interface InventoryOpenListener {
         fun onOpen(player: Player, event: InventoryOpenEvent)
     }
 
     fun Inventory.onClick(
         plugin: JavaPlugin,
-        listener: InventoryClickListener
+        listener: (Player, InventoryClickEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -38,7 +38,7 @@ object InventoryUtils {
             fun onClick(event: InventoryClickEvent) {
                 if (event.inventory != inv) return
                 val player = event.whoClicked as? Player ?: return
-                listener.onClick(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
@@ -46,7 +46,7 @@ object InventoryUtils {
 
     fun Inventory.onItemClick(
         plugin: JavaPlugin,
-        listener: InventoryClickListener
+        listener: (Player, InventoryClickEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -55,7 +55,7 @@ object InventoryUtils {
                 if (event.inventory != inv) return
                 if (event.currentItem == null) return
                 val player = event.whoClicked as? Player ?: return
-                listener.onClick(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
@@ -64,7 +64,7 @@ object InventoryUtils {
     fun Inventory.onSpecificClick(
         plugin: JavaPlugin,
         clickType: ClickType,
-        listener: InventoryClickListener
+        listener: (Player, InventoryClickEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -73,7 +73,7 @@ object InventoryUtils {
                 if (event.inventory != inv) return
                 if (event.click != clickType) return
                 val player = event.whoClicked as? Player ?: return
-                listener.onClick(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
@@ -82,7 +82,7 @@ object InventoryUtils {
     fun Inventory.onSlotClick(
         plugin: JavaPlugin,
         slot: Int,
-        listener: InventoryClickListener
+        listener: (Player, InventoryClickEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -91,7 +91,7 @@ object InventoryUtils {
                 if (event.inventory != inv) return
                 if (event.slot != slot) return
                 val player = event.whoClicked as? Player ?: return
-                listener.onClick(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
@@ -99,7 +99,7 @@ object InventoryUtils {
 
     fun Inventory.onClose(
         plugin: JavaPlugin,
-        listener: InventoryCloseListener
+        listener: (Player, InventoryCloseEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -107,7 +107,7 @@ object InventoryUtils {
             fun onClose(event: InventoryCloseEvent) {
                 if (event.inventory != inv) return
                 val player = event.player as? Player ?: return
-                listener.onClose(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
@@ -115,7 +115,7 @@ object InventoryUtils {
 
     fun Inventory.onOpen(
         plugin: JavaPlugin,
-        listener: InventoryOpenListener
+        listener: (Player, InventoryOpenEvent) -> Unit
     ): Closeable {
         val inv = this
         val eventListener = object : Listener {
@@ -123,7 +123,7 @@ object InventoryUtils {
             fun onOpen(event: InventoryOpenEvent) {
                 if (event.inventory != inv) return
                 val player = event.player as? Player ?: return
-                listener.onOpen(player, event)
+                listener(player, event)
             }
         }
         return addListener(plugin, eventListener)
