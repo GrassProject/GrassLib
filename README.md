@@ -44,7 +44,7 @@ Inventory i= new InventoryBuilder()
                 .build();
 ```
 
-4. SCoreboardBuilder
+4. ScoreboardBuilder
 ```java
 import com.github.grassproject.grassLib.builder.ScoreboardBuilder;
 
@@ -56,6 +56,18 @@ Scoreboard scoreboard = new ScoreboardBuilder(
                 .addObject("WELCOME", 0)
                 .build();
 Player.setScoreboard(scoreboard);
+```
+5. TitleBuilder
+```java
+import com.github.grassproject.grassLib.builder.TitleBuilder;
+
+TitleBuilder titleBuilder = new TitleBuilder(JavaPlugin, key)
+        .title("Hello")
+        .subTitle("World")
+        .fadeIn(1)
+        .stay(3)
+        .fadeOut(1);
+titleBuilder.ssendToPlayer(player);
 ```
 
 ## 2. EconManager

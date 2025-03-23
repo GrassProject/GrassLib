@@ -22,6 +22,8 @@ dependencies {
     compileOnly("su.nightexpress.coinsengine", "CoinsEngine","2.4.1") // CoinsEngine
     compileOnly("com.sk89q.worldguard", "worldguard-bukkit", "7.0.13") // WorldGuard
 
+    implementation("net.kyori","adventure-platform-bukkit","4.3.4") // Adventure API
+
     implementation("de.tr7zw","item-nbt-api","2.14.1") // NBT-API
     implementation("com.zaxxer","HikariCP","6.2.1") // HikariCP
 

@@ -1,0 +1,96 @@
+package com.github.grassproject.grassLib.builder;
+
+import com.github.grassproject.grassLib.utilities.component.StringExt;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.time.Duration;
+
+public class TitleBuilder {
+    private final BukkitAudiences audiences;
+    private final NamespacedKey key;
+    private String title = "";
+    private String subTitle = "";
+    private long fadeInSeconds = 0L;
+    private long staySeconds = 0L;
+    private long fadeOutSeconds = 0L;
+
+    public TitleBuilder(JavaPlugin plugin, String key) {
+        this.audiences = BukkitAudiences.create(plugin);
+        this.key = new NamespacedKey(plugin, key);
+    }
+
+    public NamespacedKey getKey() {
+        return key;
+    }
+
+    public TitleBuilder title(String titleText) {
+        this.title = titleText != null ? titleText : "";
+        return this;
+    }
+
+    public TitleBuilder subTitle(String subTitleText) {
+        this.subTitle = subTitleText != null ? subTitleText : "";
+        return this;
+    }
+
+    public TitleBuilder fadeIn(long seconds) {
+        this.fadeInSeconds = Math.max(seconds, 0);
+        return this;
+    }
+
+    public TitleBuilder stay(long seconds) {
+        this.staySeconds = Math.max(seconds, 0);
+        return this;
+    }
+
+    public TitleBuilder fadeOut(long seconds) {
+        this.fadeOutSeconds = Math.max(seconds, 0);
+        return this;
+    }
+
+    private Title build() {
+        Component titleComponent = StringExt.Companion.toMiniMessage(this.title);
+        Component subtitleComponent = StringExt.Companion.toMiniMessage(this.subTitle);
+        Title.Times times = Title.Times.times(
+                Duration.ofSeconds(fadeInSeconds),
+                Duration.ofSeconds(staySeconds),
+                Duration.ofSeconds(fadeOutSeconds)
+        );
+        return Title.title(titleComponent, subtitleComponent, times);
+    }
+
+    public void sendToPlayer(Player player) {
+        audiences.player(player).showTitle(build());
+    }
+
+    public void broadcast() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            audiences.player(player).showTitle(build());
+        }
+    }
+
+    public void removeTitle(Player player) {
+        audiences.player(player).clearTitle();
+    }
+
+    public void setTitle(String titleText) {
+        this.title = titleText != null ? titleText : "";
+    }
+
+    public void setSubTitle(String subTitleText) {
+        this.subTitle = subTitleText != null ? subTitleText : "";
+    }
+
+    public void removeTitle() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            audiences.player(player).clearTitle();
+        }
+    }
+
+}
