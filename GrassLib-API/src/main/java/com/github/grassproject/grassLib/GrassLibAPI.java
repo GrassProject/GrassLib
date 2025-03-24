@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib;
 
 import com.github.grassproject.grassLib.events.PlayerChunkChangeEvent;
+import com.github.grassproject.grassLib.inventory.InventoryEventHandler;
 import com.github.grassproject.grassLib.utilities.Register;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -35,7 +36,10 @@ public class GrassLibAPI {
                             playerChunk.put(playerId, e.getPlayer().getLocation().getChunk());
                         }
                     }
-                });
+                })
+
+                .resistEventListener(new InventoryEventHandler())
+        ;
 
     }
 }

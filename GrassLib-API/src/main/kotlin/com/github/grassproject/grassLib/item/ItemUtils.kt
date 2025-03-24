@@ -6,6 +6,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
@@ -151,12 +152,12 @@ object ItemUtils {
     internal fun addListener(plugin: JavaPlugin, listener: Listener): Closeable {
         plugin.server.pluginManager.registerEvents(listener, plugin)
         return Closeable {
-            org.bukkit.event.HandlerList.unregisterAll(listener)
+            HandlerList.unregisterAll(listener)
         }
     }
 
     fun ItemStack.onInteraction(
-        plugin:JavaPlugin,
+        plugin: JavaPlugin,
         listener: (Player, ItemStack, PlayerInteractEvent) -> Unit
     ): Closeable {
         return addListener(plugin, object : Listener {

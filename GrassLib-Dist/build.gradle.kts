@@ -32,7 +32,7 @@ tasks.shadowJar {
     }
     // from(rootProject.file("LICENSE"))
 
-     // destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
+    // destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
     minimize {
         exclude(dependency("com.github.grassproject.*:.*"))

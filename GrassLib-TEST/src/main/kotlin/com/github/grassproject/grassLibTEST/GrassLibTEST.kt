@@ -1,5 +1,7 @@
 package com.github.grassproject.grassLibTEST
 
+import com.github.grassproject.grassLib.GrassLibAPI
+import com.github.grassproject.grassLib.inventory.InventoryEventHandler
 import com.github.grassproject.grassLib.utilities.Register
 import com.github.grassproject.grassLibTEST.event.PlayerJoinListener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -14,5 +16,6 @@ class GrassLibTEST : JavaPlugin() {
         plugin=this
 
         Register(this).resistEventListener(PlayerJoinListener())
+        GrassLibAPI.setup(this)
     }
 }

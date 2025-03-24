@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.Closeable
 import java.util.function.Consumer
 
+@Deprecated("Use ItemUtils instead")
 object InventoryUtils {
 
     fun interface InventoryClickListener {
