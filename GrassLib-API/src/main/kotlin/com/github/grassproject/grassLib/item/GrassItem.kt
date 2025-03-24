@@ -35,11 +35,11 @@ class GrassItem(
         val itemMeta: ItemMeta = resultItem.itemMeta ?: return resultItem
 
         name?.let { displayName ->
-            itemMeta.displayName("<!i>${displayName}".toMiniMessage())
+            itemMeta.displayName(displayName.toMiniMessage()) // "<!i>${displayName}".toMiniMessage()
         }
 
         description?.let { lore ->
-            itemMeta.lore(lore.map { "<!i>${it}".toMiniMessage() })
+            itemMeta.lore(lore.map { it.toMiniMessage() }) // <!i>${it}".toMiniMessage()
         }
 
         if (modelData > 0) {

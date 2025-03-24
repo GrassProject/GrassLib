@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib.item
 
 import com.github.grassproject.grassLib.item.impl.*
+import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.ConfigurationSection

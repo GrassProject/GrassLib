@@ -26,7 +26,6 @@ object InventoryUtils {
         config.getString("inventory-type")?.uppercase()?.let { type ->
             val inventoryType = runCatching { InventoryType.valueOf(type) }
                 .getOrElse {
-                    // println("[InventoryUtils] 잘못된 inventory-type: $type. 기본값 CHEST 사용.")
                     InventoryType.CHEST
                 }
             builder.setType(inventoryType)
@@ -40,7 +39,14 @@ object InventoryUtils {
                 val grassItem = ItemUtils.fromSection(itemSection) ?: return@forEach
                 val itemStack = grassItem.getItem()
 
-                val slots = section.getStringList("slots").flatMap { slot ->
+                // 단일 문자열과 리스트 모두 처리
+                val slotsRaw = when {
+                    section.isList("slots") -> section.getStringList("slots")
+                    section.isString("slots") -> listOf(section.getString("slots")!!)
+                    else -> emptyList()
+                }
+
+                val slots = slotsRaw.flatMap { slot ->
                     if (slot.contains("..")) {
                         val (start, end) = slot.split("..").map { it.trim().toInt() }
                         (start..end).toList()
