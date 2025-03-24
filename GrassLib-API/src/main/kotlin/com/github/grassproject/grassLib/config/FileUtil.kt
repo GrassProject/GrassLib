@@ -10,45 +10,38 @@ object FileUtil {
     fun getConfig(file: File): YamlConfiguration = YamlConfiguration.loadConfiguration(file)
 
     fun setValue(file: File, path: String, value: Any) {
-        val config= getConfig(file)
+        val config = getConfig(file)
         config.set(path, value)
         config.save(file)
     }
 
-    fun create(file: File): Boolean {
-        if (file.exists()) return false
-
-        val parent = file.parentFile ?: return false
-
-        parent.mkdirs()
-        try {
-            return file.createNewFile()
-        } catch (exception: IOException) {
-            exception.printStackTrace()
-            return false
+    fun create(plugin: JavaPlugin, path: String): Boolean {
+        val file = prepareFile(plugin, path) ?: return false
+        return try {
+            file.createNewFile()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
         }
     }
 
-    fun create(plugin: JavaPlugin, file: String): Boolean = create(getConfigFile(plugin, file))
-
     fun createFromResource(plugin: JavaPlugin, path: String): Boolean {
-        val file = getConfigFile(plugin, path)
-        if (file.exists()) return false
-
-        val parent = file.parentFile ?: return false
-        parent.mkdirs()
-
+        val file = prepareFile(plugin, path) ?: return false
         val resource = plugin.getResource(path) ?: return false
         return try {
-            resource.use { inputStream ->
-                file.outputStream().use { outputStream ->
-                    inputStream.copyTo(outputStream)
-                }
-            }
+            resource.use { it.copyTo(file.outputStream()) }
             true
-        } catch (exception: IOException) {
-            exception.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
             false
         }
+    }
+
+    private fun prepareFile(plugin: JavaPlugin, path: String): File? {
+        val file = getConfigFile(plugin, path)
+        if (file.exists()) return null
+        val parent = file.parentFile ?: return null
+        parent.mkdirs()
+        return file
     }
 }
