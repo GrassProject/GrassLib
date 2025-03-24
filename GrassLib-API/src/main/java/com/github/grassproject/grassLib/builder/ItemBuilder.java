@@ -13,32 +13,36 @@ import java.util.function.Consumer;
 /**
  * @author apo2073
  * @apiNote ItemBuilder
-* */
+ * */
 public class ItemBuilder {
     private final ItemStack itemStack;
-    private Integer amount=1;
+    private Integer amount = 1;
     private ItemMeta itemMeta;
     private List<Component> lore;
 
     /**
      * @param material The Material of The Item
      * */
-    public ItemBuilder(Material material) {this.itemStack=new ItemStack(material);}
+    public ItemBuilder(Material material) {
+        this.itemStack = new ItemStack(material);
+        this.itemMeta = this.itemStack.getItemMeta();
+    }
 
     /**
      * @param material The Material of The Item
      * @param amount Amount of The Item
      * */
     public ItemBuilder(Material material, int amount) {
-        this.itemStack=new ItemStack(material, amount);
-        this.amount=amount;
+        this.itemStack = new ItemStack(material, amount);
+        this.amount = amount;
+        this.itemMeta = this.itemStack.getItemMeta();
     }
 
     /**
      * @param item Get ItemBuilder from ItemStack */
     public ItemBuilder(ItemStack item) {
-        this.itemStack=item;
-        this.itemMeta=item.getItemMeta();
+        this.itemStack = item;
+        this.itemMeta = item.getItemMeta();
     }
 
     /**
@@ -51,7 +55,7 @@ public class ItemBuilder {
      * @param meta ItemMeta to set
      * */
     public ItemBuilder setItemMeta(ItemMeta meta) {
-        this.itemMeta=meta;
+        this.itemMeta = meta;
         return this;
     }
 
@@ -60,6 +64,12 @@ public class ItemBuilder {
      * */
     public ItemBuilder setDisplayName(String displayName) {
         this.itemMeta.displayName(StringExt.Companion.toMiniMessage(displayName));
+        this.itemStack.setItemMeta(this.itemMeta);
+        return this;
+    }
+
+    public ItemBuilder setDisplayName(Component displayName) {
+        this.itemMeta.displayName(displayName);
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
     }
