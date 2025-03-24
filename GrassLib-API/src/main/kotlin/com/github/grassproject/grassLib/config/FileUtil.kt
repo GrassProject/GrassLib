@@ -30,4 +30,25 @@ object FileUtil {
     }
 
     fun create(plugin: JavaPlugin, file: String): Boolean = create(getConfigFile(plugin, file))
+
+    fun createFromResource(plugin: JavaPlugin, path: String): Boolean {
+        val file = getConfigFile(plugin, path)
+        if (file.exists()) return false
+
+        val parent = file.parentFile ?: return false
+        parent.mkdirs()
+
+        val resource = plugin.getResource(path) ?: return false
+        return try {
+            resource.use { inputStream ->
+                file.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+            true
+        } catch (exception: IOException) {
+            exception.printStackTrace()
+            false
+        }
+    }
 }
