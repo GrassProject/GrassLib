@@ -13,11 +13,11 @@ class TestInv : GrassInventory(27, Component.text("상점").color(NamedTextColor
         inventory.setItem(1, ItemStack(Material.GOLD_INGOT, 1))
     }
 
-    override fun onClick(event: InventoryClickEvent): Boolean {
+    override fun onClick(event: InventoryClickEvent) {
         if (event.slot == 0) {
             event.whoClicked.sendMessage("사과를 클릭했습니다!")
-            return true
+            event.isCancelled = true
         }
-        return false
     }
+
 }

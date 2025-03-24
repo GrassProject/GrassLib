@@ -3,10 +3,7 @@ package com.github.grassproject.grassLib.inventory;
 import com.github.grassproject.grassLib.builder.InventoryBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import net.kyori.adventure.text.Component;
@@ -42,16 +39,15 @@ public abstract class GrassInventory implements InventoryHolder {
         return inventory;
     }
 
-    protected boolean onClick(InventoryClickEvent event) {
-        return true;
-    }
+    protected void onClick(InventoryClickEvent event) {}
 
-    protected boolean onDrag(InventoryDragEvent event) {
-        return true;
-    }
+    protected void onDrag(InventoryDragEvent event) {}
 
-    protected void onClose(InventoryCloseEvent event) {
-    }
+    protected void onClose(InventoryCloseEvent event) {}
+
+    protected void onOpen(InventoryOpenEvent event) {}
+
+    // protected void onPageChange(int page) {}
 
     public static InventoryBuilder builder() {
         return new InventoryBuilder();

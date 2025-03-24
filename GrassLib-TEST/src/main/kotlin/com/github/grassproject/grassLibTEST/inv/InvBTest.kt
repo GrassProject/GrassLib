@@ -17,14 +17,13 @@ object InvBTest : GrassInventory(builder()
         inventory.setItem(1, ItemStack(Material.GOLD_INGOT, 1))
     }
 
-    override fun onClick(event: InventoryClickEvent): Boolean {
+    override fun onClick(event: InventoryClickEvent) {
         if (event.clickedInventory == inventory) {
             println("a")
         }
         if (event.slot == 0) {
             event.whoClicked.sendMessage(Component.text("사과를 클릭했습니다!"))
-            return true
+            event.isCancelled = true
         }
-        return false
     }
 }
