@@ -30,7 +30,7 @@ public class TitleBuilder {
     }
 
     public TitleBuilder title(String title) {
-        this.title = title != null ? StringExt.Companion.toMiniMessage(title) : Component.empty();
+        this.title = title != null ? StringExt.INSTANCE.toMiniMessage(title) : Component.empty();
         return this;
     }
 
@@ -40,7 +40,7 @@ public class TitleBuilder {
     }
 
     public TitleBuilder subTitle(String subTitle) {
-        this.subTitle = subTitle != null ? StringExt.Companion.toMiniMessage(subTitle) : Component.empty();
+        this.subTitle = subTitle != null ? StringExt.INSTANCE.toMiniMessage(subTitle) : Component.empty();
         return this;
     }
 
@@ -88,7 +88,7 @@ public class TitleBuilder {
     }
 
     public void setTitle(String title) {
-        this.title = title != null ? StringExt.Companion.toMiniMessage(title) : Component.empty();
+        this.title = title != null ? StringExt.INSTANCE.toMiniMessage(title) : Component.empty();
     }
 
     public void setTitle(Component title) {
@@ -96,7 +96,7 @@ public class TitleBuilder {
     }
 
     public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle != null ? StringExt.Companion.toMiniMessage(subTitle) : Component.empty();
+        this.subTitle = subTitle != null ? StringExt.INSTANCE.toMiniMessage(subTitle) : Component.empty();
     }
 
     public void setSubTitle(Component subTitle) {

@@ -63,7 +63,7 @@ public class ItemBuilder {
      * @param displayName String value of the item display name
      * */
     public ItemBuilder setDisplayName(String displayName) {
-        this.itemMeta.displayName(StringExt.Companion.toMiniMessage(displayName));
+        this.itemMeta.displayName(StringExt.INSTANCE.toMiniMessage(displayName));
         this.itemStack.setItemMeta(this.itemMeta);
         return this;
     }
