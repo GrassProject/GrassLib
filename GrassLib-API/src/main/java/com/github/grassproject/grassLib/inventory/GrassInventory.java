@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.inventory;
 
+import com.github.grassproject.grassLib.builder.InventoryBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -13,6 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class GrassInventory implements InventoryHolder {
     protected final Inventory inventory;
+
+    protected GrassInventory(InventoryBuilder builder) {
+        this.inventory = builder.setHolder(this).build();
+        initializeItems();
+    }
 
     public GrassInventory(int size, Component title) {
         this.inventory = Bukkit.createInventory(this, size, title);
@@ -45,5 +51,9 @@ public abstract class GrassInventory implements InventoryHolder {
     }
 
     protected void onClose(InventoryCloseEvent event) {
+    }
+
+    public static InventoryBuilder builder() {
+        return new InventoryBuilder();
     }
 }

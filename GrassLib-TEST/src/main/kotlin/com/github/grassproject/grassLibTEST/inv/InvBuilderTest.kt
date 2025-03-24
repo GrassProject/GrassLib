@@ -14,7 +14,7 @@ class InvBuilderTest {
         val inv = InventoryBuilder()
             .setType(InventoryType.ANVIL)
             .setItem(0, ItemStack(Material.PAPER))
-            .setItem(1, ItemUtils.createItem("nexo:arm_chair"))
+            .setItem(1, ItemUtils.createItem("nexo:arm_chair")!!)
             .build()
             .apply {
                 onItemClick(GrassLibTEST.plugin) { p, event ->

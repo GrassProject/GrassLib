@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLibTEST.event
 
+import com.github.grassproject.grassLibTEST.inv.InvBTest
 import com.github.grassproject.grassLibTEST.inv.InvBuilderTest
 import com.github.grassproject.grassLibTEST.inv.TestInv
 import jdk.incubator.vector.VectorOperators.Test
@@ -11,7 +12,7 @@ class PlayerJoinListener : Listener {
 
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        val inv = TestInv() // InvBuilderTest().anvil(event.player)
+        val inv = InvBTest// estInv() // InvBuilderTest().anvil(event.player)
         inv.open(event.player)
     }
 }
