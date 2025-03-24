@@ -28,4 +28,6 @@ object FileUtil {
             return false
         }
     }
+
+    fun create(plugin: JavaPlugin, file: String): Boolean = create(getConfigFile(plugin, file))
 }
