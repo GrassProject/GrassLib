@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.entity
+package com.github.grassproject.grassLib.fakeEntity
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

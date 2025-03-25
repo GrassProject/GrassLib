@@ -12,6 +12,10 @@ fun PlayerInventory.full(): Boolean {
     return true
 }
 
+fun Player.isInventoryFull(): Boolean {
+    return inventory.firstEmpty() == -1
+}
+
 fun Player.performCommandAsOP(command:String) {
     val isOP=this.isOp
     this.isOp=true

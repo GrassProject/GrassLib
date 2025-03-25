@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.entity
+package com.github.grassproject.grassLib.fakeEntity
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
