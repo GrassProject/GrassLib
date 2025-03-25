@@ -1,6 +1,5 @@
-package com.github.grassproject.grassLib.FakeEntity
+package com.github.grassproject.grassLib.entity
 
-import io.lumine.mythic.bukkit.utils.config.properties.Property
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -10,7 +9,6 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 @Serializable
 data class SkinProfile(

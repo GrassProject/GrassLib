@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.FakeEntity
+package com.github.grassproject.grassLib.entity
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.EntityType
-import org.bukkit.entity.Player
 import java.util.*
 
 class VirtualEntity(
