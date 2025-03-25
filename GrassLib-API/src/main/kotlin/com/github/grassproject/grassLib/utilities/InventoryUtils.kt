@@ -6,65 +6,41 @@ import com.github.grassproject.grassLib.utilities.component.toMiniMessage
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
+import kotlin.math.min
 
 object InventoryUtils {
 
-    fun loadInventoryFromConfig(config: ConfigurationSection): Inventory {
-        return loadInventoryBuilderFromConfig(config).build()
-    }
+    fun loadInventoryFromConfig(config: ConfigurationSection): Inventory =
+        loadInventoryBuilderFromConfig(config).build()
 
-    fun loadInventoryBuilderFromConfig(config: ConfigurationSection): InventoryBuilder {
-        val builder = InventoryBuilder()
-
-        config.getString("title")?.let { title ->
-            builder.setTitle(title.toMiniMessage())
-        }
-
-        val size = config.getInt("size", 9)
-        builder.setSize(size)
+    fun loadInventoryBuilderFromConfig(config: ConfigurationSection): InventoryBuilder = InventoryBuilder().apply {
+        config.getString("title")?.let { setTitle(it.toMiniMessage()) }
+        setSize(config.getInt("size", 9))
 
         config.getString("inventory-type")?.uppercase()?.let { type ->
-            val inventoryType = runCatching { InventoryType.valueOf(type) }
-                .getOrElse {
-                    InventoryType.CHEST
-                }
-            builder.setType(inventoryType)
+            setType(runCatching { InventoryType.valueOf(type) }.getOrElse { InventoryType.CHEST })
         }
 
         config.getConfigurationSection("contents")?.let { contents ->
             contents.getKeys(false).forEach { key ->
                 val section = contents.getConfigurationSection(key) ?: return@forEach
-
                 val itemSection = section.getConfigurationSection("item") ?: return@forEach
                 val grassItem = ItemUtils.fromSection(itemSection) ?: return@forEach
                 val itemStack = grassItem.getItem()
-
-                val slotsRaw = when {
-                    section.isList("slots") -> section.getStringList("slots")
-                    section.isString("slots") -> listOf(section.getString("slots")!!)
-                    else -> emptyList()
-                }
-
-                val slots = slotsRaw.flatMap { slot ->
-                    if (slot.contains("..")) {
-                        val (start, end) = slot.split("..").map { it.trim().toInt() }
-                        (start..end).toList()
-                    } else {
-                        listOf(slot.toInt())
-                    }
-                }
-                if (slots.isNotEmpty()) {
-                    slots.forEach { slot ->
-                        builder.setItem(slot, itemStack)
-                    }
-                }
+                parseSlots(contents, key).forEach { slot -> setItem(slot, itemStack) }
             }
         }
-
-        return builder
     }
 
-    fun parseSlots(section: ConfigurationSection): List<Int> {
+    fun parseSlots(section: ConfigurationSection): List<Int> = parseSlotsRaw(section)
+
+    fun parseSlots(contentsSection: ConfigurationSection, key: String): List<Int> {
+        val section = contentsSection.getConfigurationSection(key) ?: return emptyList()
+        return parseSlotsRaw(section)
+    }
+
+    private fun parseSlotsRaw(section: ConfigurationSection): List<Int> {
         val slotsRaw = when {
             section.isList("slots") -> section.getStringList("slots")
             section.isString("slots") -> listOf(section.getString("slots")!!)
@@ -77,6 +53,20 @@ object InventoryUtils {
             } else {
                 listOf(slot.toInt())
             }
+        }
+    }
+
+    fun fillSlots(builder: InventoryBuilder, slots: List<Int>, itemStack: ItemStack) {
+        slots.forEach { builder.setItem(it, itemStack) }
+    }
+
+    fun isValidSlot(inventory: Inventory, slot: Int): Boolean = slot >= 0 && slot < inventory.size
+
+    fun paginateItems(builder: InventoryBuilder, items: List<ItemStack>, page: Int, itemsPerPage: Int) {
+        val startIndex = page * itemsPerPage
+        val endIndex = min(startIndex + itemsPerPage, items.size)
+        items.subList(startIndex, endIndex).forEachIndexed { index, item ->
+            builder.setItem(index, item)
         }
     }
 }

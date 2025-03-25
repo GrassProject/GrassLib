@@ -20,6 +20,7 @@ object WorldGuardHook {
             throw NotFoundPlugin("WorldGuard")
         }
     }
+
     fun isInRegion(entity: Entity, region: String): Boolean {
         return getRegion(entity).equals(region, ignoreCase = true)
     }
@@ -76,5 +77,17 @@ object WorldGuardHook {
     fun isInRegion(entity: Entity?, regions: List<String>): Boolean {
         val inRegions = getProtectedRegions(entity!!.location)
         return inRegions.any { it.id in regions }
+    }
+
+    fun hasExitedRegion(from: Location, to: Location, regions: List<String>): Boolean {
+        val wasInRegion = getProtectedRegions(from).any { it.id in regions }
+        val isInRegion = getProtectedRegions(to).any { it.id in regions }
+        return wasInRegion && !isInRegion
+    }
+
+    fun hasExitedRegion(from: Location, to: Location, region: String): Boolean {
+        val wasInRegion = getRegion(from).equals(region, ignoreCase = true)
+        val isInRegion = getRegion(to).equals(region, ignoreCase = true)
+        return wasInRegion && !isInRegion
     }
 }
