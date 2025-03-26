@@ -16,6 +16,37 @@ fun Player.isInventoryFull(): Boolean {
     return inventory.firstEmpty() == -1
 }
 
+fun Player.getEmptySlotCount(): Int {
+    return inventory.contents.count { it == null }
+}
+
+fun Player.hasItemInSlot(slot: Int): Boolean {
+    if (slot !in 0 until inventory.size) return false
+    return inventory.getItem(slot) != null
+}
+
+fun Player.getEmptySlotIndices(): List<Int> {
+    return inventory.contents
+        .mapIndexed { index, item -> if (item == null) index else -1 }
+        .filter { it != -1 }
+}
+
+fun Player.isSlotEmpty(slot: Int): Boolean {
+    if (slot !in 0 until inventory.size) return false
+    return inventory.getItem(slot) == null
+}
+
+fun Player.hasEmptySlots(n: Int): Boolean {
+    if (n <= 0 || n > inventory.size) return false
+    return inventory.contents.count { it == null } >= n
+}
+
+fun Player.hasEmptySlotsInRange(min: Int, max: Int): Boolean {
+    if (min <= 0 || max > inventory.size || min > max) return false
+    val emptyCount = inventory.contents.count { it == null }
+    return emptyCount in min..max
+}
+
 fun Player.performCommandAsOP(command:String) {
     val isOP=this.isOp
     this.isOp=true
