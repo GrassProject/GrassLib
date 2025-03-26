@@ -67,6 +67,9 @@ tasks.shadowJar {
     minimize {
         exclude(dependency("com.github.grassproject.*:.*"))
     }
+    manifest {
+        attributes["paperweight-mappings-namespace"] = "mojang"
+    }
 }
 
 publishing {
