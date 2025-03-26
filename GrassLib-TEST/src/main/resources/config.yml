@@ -1,0 +1,12 @@
+database:
+  type: SQLITE
+  credentials:
+    host: localhost
+    port: 3306
+    database: database
+    username: root
+    password: ""
+    parameters: ?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+  pool:
+    size: 10
+    name: grasslib-test
