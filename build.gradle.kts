@@ -28,6 +28,8 @@ allprojects {
         maven("https://jitpack.io")
         maven("https://repo.nightexpressdev.com/releases")
         maven("https://maven.enginehub.org/repo/")
+
+        maven("https://repo.codemc.org/repository/maven-public/")
     }
 
 //    signing {

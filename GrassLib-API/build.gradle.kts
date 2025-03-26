@@ -31,6 +31,10 @@ dependencies {
     implementation("com.mysql","mysql-connector-j", "9.2.0") // MySQL
     implementation("org.xerial","sqlite-jdbc", "3.49.1.0") // SQLite
 
+    implementation("dev.jorel","commandapi-bukkit-shade-mojang-mapped","9.7.0") // CommandAPI
+
+    implementation("org.bstats","bstats-bukkit","3.0.2") // Bstats
+
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
@@ -55,6 +59,8 @@ tasks.shadowJar {
     relocate("de.tr7zw.changeme.nbtapi", "com.github.grassproject.grassLib.shadow")
     relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow")
     relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow")
+    relocate("org.bstats", "com.github.grassproject.grassLib.shadow")
+    relocate("dev.jorel.commandapi", "com.github.grassproject.grassLib.shadow")
 
     exclude("kotlin/**")
     exclude("org/**")

@@ -3,6 +3,7 @@ package com.github.grassproject.grassLib;
 import com.github.grassproject.grassLib.events.PlayerChunkChangeEvent;
 import com.github.grassproject.grassLib.inventory.InventoryEventHandler;
 import com.github.grassproject.grassLib.utilities.Register;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 public class GrassLibAPI {
     public static void setup(JavaPlugin plugin) {
+        new Metrics(plugin, 25261);
         new Register(plugin)
                 .resistEventListener(new Listener() {
                     private final Map<UUID, Chunk> playerChunk = new HashMap<>();
