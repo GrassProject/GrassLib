@@ -33,7 +33,7 @@ dependencies {
 
     implementation("dev.jorel","commandapi-bukkit-shade-mojang-mapped","9.7.0") // CommandAPI
 
-    implementation("org.bstats","bstats-bukkit","3.0.2") // Bstats
+    implementation("org.bstats","bstats-bukkit","3.1.0") // Bstats
 
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
