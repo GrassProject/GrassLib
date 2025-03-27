@@ -59,7 +59,7 @@ tasks.shadowJar {
     relocate("de.tr7zw.changeme.nbtapi", "com.github.grassproject.grassLib.shadow")
     relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow")
     relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow")
-    relocate("org.bstats", "com.github.grassproject.grassLib.shadow")
+    relocate("org.bstats","com.github.grassproject.grassLib.shadow")
     relocate("dev.jorel.commandapi", "com.github.grassproject.grassLib.shadow")
 
     exclude("kotlin/**")

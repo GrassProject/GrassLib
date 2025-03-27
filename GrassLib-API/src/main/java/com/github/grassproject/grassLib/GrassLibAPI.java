@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class GrassLibAPI {
     public static void setup(JavaPlugin plugin) {
-        new Metrics(plugin, 25261);
+        // new Metrics(plugin, 25261);
         new Register(plugin)
                 .resistEventListener(new Listener() {
                     private final Map<UUID, Chunk> playerChunk = new HashMap<>();
