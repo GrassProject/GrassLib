@@ -13,9 +13,11 @@ class GrassLibTEST : JavaPlugin() {
             private set
     }
     override fun onEnable() {
-        plugin=this
+    plugin=this
+        /*
+                Register(this).resistEventListener(PlayerJoinListener())
+                GrassLibAPI.setup(this)*/
 
-        Register(this).resistEventListener(PlayerJoinListener())
-        GrassLibAPI.setup(this)
+
     }
 }

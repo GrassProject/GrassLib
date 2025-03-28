@@ -22,7 +22,7 @@ object ItemUtils {
         val itemValue = itemName.substring(itemName.indexOf(":") + 1)
 
         return when (itemType) {
-            "ia" -> IAUtils.getCustomItem(itemValue)
+            "ia", "itemsadder" -> IAUtils.getCustomItem(itemValue)
             "nexo" -> NexoUtils.getCustomItem(itemValue)
             "oraxen" -> OraxenUtils.getCustomItem(itemValue)
             "mythic" -> MythicUtils.getCustomItem(itemValue)

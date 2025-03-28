@@ -6,10 +6,18 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
+val exposedVersion: String by project
+
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation(project(":GrassLib-API"))
-//    implementation("com.github.grassproject:GrassLib:1.0")
+//    implementation("com.github.grassproject:GrassLib:1.0")\
+
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
 
 val targetJavaVersion = 21
