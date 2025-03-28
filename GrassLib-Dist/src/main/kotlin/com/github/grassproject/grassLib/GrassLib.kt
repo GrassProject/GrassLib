@@ -1,7 +1,5 @@
 package com.github.grassproject.grassLib
 
-import jdk.internal.platform.Metrics
-
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
@@ -14,7 +12,7 @@ class GrassLib : JavaPlugin() {
     override fun onEnable() {
         plugin = this
         saveDefaultConfig()
-        GrassLibAPI.setup(this)
+        GrassLibAPI.setupGrassLib(this)
         // DatabaseManager(plugin).init(config) // Example
         // server.pluginManager.registerEvents(TestInventory(), this) // Example
     }
