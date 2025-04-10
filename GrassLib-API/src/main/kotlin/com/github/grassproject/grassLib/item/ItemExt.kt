@@ -1,10 +1,14 @@
 package com.github.grassproject.grassLib.item
 
-import io.lumine.mythic.bukkit.utils.lib.jooq.impl.QOM.Ge
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
+import org.bukkit.plugin.java.JavaPlugin
 
 private val ARMOR_MATERIALS = setOf(
     Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_CHESTPLATE, Material.LEATHER_HELMET,
@@ -73,3 +77,20 @@ fun GrassItem.toItemStack(): ItemStack {
 }
 
 fun ItemStack.toGrassItem(): GrassItem = ItemUtils.create(this)
+
+fun Entity.itemFromPDC(plugin: JavaPlugin, pdc: String): ItemStack? =
+    persistentDataContainer.get(NamespacedKey(plugin, pdc), PersistentDataType.STRING)?.let { value ->
+        try {
+            ItemStack(Material.valueOf(value.uppercase()))
+        } catch (e: IllegalArgumentException) {
+            null
+        }
+    }
+
+fun ItemStack.giveToPlayer(player: Player) {
+    player.inventory.addItem(this)
+}
+
+fun Player.giveItem(item: ItemStack) {
+    this.inventory.addItem(item)
+}
