@@ -1,5 +1,6 @@
-package com.github.grassproject.grassLib.api
+package com.github.grassproject.grassLib
 
+import com.github.grassproject.grassLib.api.GrassLibAPI
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
