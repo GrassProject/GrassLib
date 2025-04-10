@@ -1,11 +1,10 @@
 package com.github.grassproject.grassLibTEST.inv
 
-import com.github.grassproject.grassLib.inventory.GrassInventory
+import com.github.grassproject.grassLib.api.inventory.GrassInventory
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
 
 object InvBTest : GrassInventory(builder()
