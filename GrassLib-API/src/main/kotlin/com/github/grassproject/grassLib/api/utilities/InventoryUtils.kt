@@ -1,8 +1,8 @@
 package com.github.grassproject.grassLib.api.utilities
 
 import com.github.grassproject.grassLib.api.builder.InventoryBuilder
-import com.github.grassproject.grassLib.item.ItemUtils
-import com.github.grassproject.grassLib.utilities.component.toMiniMessage
+import com.github.grassproject.grassLib.api.item.ItemUtils
+import com.github.grassproject.grassLib.api.utilities.component.toMiniMessage
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory

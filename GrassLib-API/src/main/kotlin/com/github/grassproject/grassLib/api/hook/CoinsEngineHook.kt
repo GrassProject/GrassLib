@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.hook
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.PluginUtils
 import org.bukkit.entity.Player
 import su.nightexpress.coinsengine.api.CoinsEngineAPI
 import su.nightexpress.nightcore.util.NumberUtil

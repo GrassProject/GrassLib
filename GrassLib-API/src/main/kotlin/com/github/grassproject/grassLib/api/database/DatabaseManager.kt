@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.database
 
-import com.github.grassproject.grassLib.database.impl.MySQLDriver
-import com.github.grassproject.grassLib.database.impl.SQLiteDriver
+import com.github.grassproject.grassLib.api.database.impl.MySQLDriver
+import com.github.grassproject.grassLib.api.database.impl.SQLiteDriver
 import com.zaxxer.hikari.HikariDataSource
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.java.JavaPlugin

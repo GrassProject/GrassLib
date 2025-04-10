@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLibTEST.inv
 
 import com.github.grassproject.grassLib.api.builder.InventoryBuilder
-import com.github.grassproject.grassLib.item.ItemUtils
+import com.github.grassproject.grassLib.api.item.ItemUtils
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryType

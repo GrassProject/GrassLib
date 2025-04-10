@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.api.builder;
 
-import com.github.grassproject.grassLib.utilities.component.StringExt;
+import com.github.grassproject.grassLib.api.utilities.component.StringExt;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Criteria;

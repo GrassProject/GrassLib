@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.PluginUtils
 import io.lumine.mythic.api.MythicProvider
 import io.lumine.mythic.bukkit.MythicBukkit
 import io.lumine.mythic.bukkit.adapters.BukkitItemStack

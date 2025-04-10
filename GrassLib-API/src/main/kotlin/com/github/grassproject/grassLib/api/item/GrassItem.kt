@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.api.item
 
-import com.github.grassproject.grassLib.utilities.component.toMiniMessage
+import com.github.grassproject.grassLib.api.utilities.component.toMiniMessage
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack

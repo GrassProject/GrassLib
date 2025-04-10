@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.hook
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.PluginUtils
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.world.World as WEWorld
 import com.sk89q.worldguard.WorldGuard

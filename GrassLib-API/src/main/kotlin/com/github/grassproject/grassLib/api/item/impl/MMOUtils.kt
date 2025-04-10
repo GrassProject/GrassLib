@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.PluginUtils
 import net.Indyuce.mmoitems.MMOItems
 import org.bukkit.inventory.ItemStack
 

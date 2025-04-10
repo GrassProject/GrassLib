@@ -1,6 +1,6 @@
 package com.github.grassproject.grassLib.api;
 
-import com.github.grassproject.grassLib.events.PlayerChunkChangeEvent;
+import com.github.grassproject.grassLib.api.events.PlayerChunkChangeEvent;
 import com.github.grassproject.grassLib.api.inventory.InventoryEventHandler;
 import com.github.grassproject.grassLib.api.utilities.Register;
 import org.bukkit.Bukkit;

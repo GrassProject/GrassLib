@@ -1,9 +1,8 @@
 package com.github.grassproject.grassLib.api.item
 
-import com.github.grassproject.grassLib.item.impl.*
-import com.github.grassproject.grassLib.utilities.component.toMiniMessage
+import com.github.grassproject.grassLib.api.item.impl.*
+import com.github.grassproject.grassLib.api.utilities.component.toMiniMessage
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.ConfigurationSection
