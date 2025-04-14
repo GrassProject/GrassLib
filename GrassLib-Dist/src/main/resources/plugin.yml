@@ -1,7 +1,7 @@
 name: GrassLib
 main: com.github.grassproject.grassLib.GrassLib
 version: ${version}
-api-version: 1.21
+api-version: 1.17
 authors: [ GrassProject ]
 softdepend: [
   ItemsAdder,
