@@ -22,7 +22,13 @@ object SoundUtils {
         when (sound) {
             is Sound -> player.playSound(player.location, sound, category, normalizedVolume, normalizedPitch)
             is String -> player.playSound(player.location, sound, category, normalizedVolume, normalizedPitch)
-            is List<*> -> playSoundList(player, sound.filterNotNull(), normalizedVolume, normalizedPitch, category)
+            is List<*> -> playSoundList(
+                player,
+                sound.filterNotNull(),
+                normalizedVolume,
+                normalizedPitch,
+                category
+            )
             is SoundBuilder -> sound.apply { setPlayer(player) }.play()
             else -> throw IllegalArgumentException("Sound는 Sound enum, String, List 또는 SoundBuilder이어야 합니다.")
         }
@@ -41,7 +47,13 @@ object SoundUtils {
         when (sound) {
             is Sound -> world.playSound(location, sound, category, normalizedVolume, normalizedPitch)
             is String -> world.playSound(location, sound, category, normalizedVolume, normalizedPitch)
-            is List<*> -> playSoundListAt(location, sound.filterNotNull(), normalizedVolume, normalizedPitch, category)
+            is List<*> -> playSoundListAt(
+                location,
+                sound.filterNotNull(),
+                normalizedVolume,
+                normalizedPitch,
+                category
+            )
             is SoundBuilder -> sound.apply { setLocation(location) }.play()
             else -> throw IllegalArgumentException("Sound는 Sound enum, String, List 또는 SoundBuilder이어야 합니다.")
         }
@@ -54,7 +66,15 @@ object SoundUtils {
         pitch: Float = 1.0f,
         category: SoundCategory = SoundCategory.MASTER
     ) {
-        players.forEach { playSound(it, sound, volume, pitch, category) }
+        players.forEach {
+            com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(
+                it,
+                sound,
+                volume,
+                pitch,
+                category
+            )
+        }
     }
 
     fun playSoundInRange(
@@ -68,7 +88,15 @@ object SoundUtils {
         val world = location.world ?: throw IllegalArgumentException("Location의 World가 null입니다.")
         world.getNearbyEntities(location, radius, radius, radius)
             .filterIsInstance<Player>()
-            .forEach { playSound(it, sound, volume, pitch, category) }
+            .forEach {
+                com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(
+                    it,
+                    sound,
+                    volume,
+                    pitch,
+                    category
+                )
+            }
     }
 
     fun playSoundFromConfig(
@@ -76,8 +104,11 @@ object SoundUtils {
         config: ConfigurationSection,
         path: String
     ) {
-        val (sound, volume, pitch) = parseSoundFromConfig(config, path) ?: return
-        playSound(player, sound, volume, pitch)
+        val (sound, volume, pitch) = com.github.grassproject.grassLib.api.utilities.SoundUtils.parseSoundFromConfig(
+            config,
+            path
+        ) ?: return
+        com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(player, sound, volume, pitch)
     }
 
     fun playSoundWithDebounce(
@@ -89,9 +120,9 @@ object SoundUtils {
         debounceMs: Long = 100L
     ) {
         val now = System.currentTimeMillis()
-        if (now - (lastPlayed[player] ?: 0L) < debounceMs) return
-        playSound(player, sound, volume, pitch, category)
-        lastPlayed[player] = now
+        if (now - (com.github.grassproject.grassLib.api.utilities.SoundUtils.lastPlayed[player] ?: 0L) < debounceMs) return
+        com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(player, sound, volume, pitch, category)
+        com.github.grassproject.grassLib.api.utilities.SoundUtils.lastPlayed[player] = now
     }
 
     private fun playSoundList(
@@ -104,9 +135,25 @@ object SoundUtils {
     ) {
         if (sounds.isEmpty()) return
         if (random) {
-            sounds.randomOrNull()?.let { playSound(player, it, volume, pitch, category) }
+            sounds.randomOrNull()?.let {
+                com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(
+                    player,
+                    it,
+                    volume,
+                    pitch,
+                    category
+                )
+            }
         } else {
-            sounds.forEach { playSound(player, it, volume, pitch, category) }
+            sounds.forEach {
+                com.github.grassproject.grassLib.api.utilities.SoundUtils.playSound(
+                    player,
+                    it,
+                    volume,
+                    pitch,
+                    category
+                )
+            }
         }
     }
 
@@ -120,9 +167,25 @@ object SoundUtils {
     ) {
         if (sounds.isEmpty()) return
         if (random) {
-            sounds.randomOrNull()?.let { playSoundAt(location, it, volume, pitch, category) }
+            sounds.randomOrNull()?.let {
+                com.github.grassproject.grassLib.api.utilities.SoundUtils.playSoundAt(
+                    location,
+                    it,
+                    volume,
+                    pitch,
+                    category
+                )
+            }
         } else {
-            sounds.forEach { playSoundAt(location, it, volume, pitch, category) }
+            sounds.forEach {
+                com.github.grassproject.grassLib.api.utilities.SoundUtils.playSoundAt(
+                    location,
+                    it,
+                    volume,
+                    pitch,
+                    category
+                )
+            }
         }
     }
 

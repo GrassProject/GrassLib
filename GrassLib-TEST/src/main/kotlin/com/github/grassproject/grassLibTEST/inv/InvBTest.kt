@@ -20,9 +20,7 @@ object InvBTest : GrassInventory(builder()
         if (event.clickedInventory == inventory) {
             println("a")
         }
-        if (event.slot == 0) {
-            event.whoClicked.sendMessage(Component.text("사과를 클릭했습니다!"))
-            event.isCancelled = true
-        }
+        event.whoClicked.sendMessage(Component.text("${event.currentItem?.type.toString()}를 클릭했습니다!"))
+        event.isCancelled = true
     }
 }

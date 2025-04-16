@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.20"
     id("com.gradleup.shadow") version "9.0.0-beta10"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = rootProject.group
@@ -45,5 +46,11 @@ tasks.processResources {
     filteringCharset = "UTF-8"
     filesMatching("plugin.yml") {
         expand(props)
+    }
+}
+
+tasks {
+    runServer {
+        minecraftVersion("1.21")
     }
 }

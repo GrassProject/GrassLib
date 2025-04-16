@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class GrassLibAPI {
+public class GrassAPI {
+    public static JavaPlugin plugin;
     public static void setupGrassLib(JavaPlugin plugin) {
         // new Metrics(plugin, 25261);
+        GrassAPI.plugin = plugin;
         new Register(plugin)
                 .resistEventListener(new Listener() {
                     private final Map<UUID, Chunk> playerChunk = new HashMap<>();
@@ -38,9 +40,6 @@ public class GrassLibAPI {
                         }
                     }
                 })
-
-                .resistEventListener(new InventoryEventHandler())
-        ;
-
+                .resistEventListener(new InventoryEventHandler());
     }
 }

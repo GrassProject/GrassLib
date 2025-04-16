@@ -1,10 +1,9 @@
 package com.github.grassproject.grassLib
 
-import com.github.grassproject.grassLib.api.GrassLibAPI
+import com.github.grassproject.grassLib.api.GrassAPI
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {
-
     companion object {
         lateinit var plugin: JavaPlugin
             private set
@@ -13,7 +12,7 @@ class GrassLib : JavaPlugin() {
     override fun onEnable() {
         plugin = this
         saveDefaultConfig()
-        GrassLibAPI.setupGrassLib(this)
+        GrassAPI.setupGrassLib(this)
         // DatabaseManager(plugin).init(config) // Example
         // server.pluginManager.registerEvents(TestInventory(), this) // Example
     }

@@ -4,6 +4,7 @@ import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.ProtocolManager
 import com.comphenix.protocol.wrappers.*
+import com.github.grassproject.grassLib.api.annotation.Buggy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.bukkit.Bukkit
@@ -11,6 +12,7 @@ import org.bukkit.Location
 import org.bukkit.entity.EntityType
 import java.util.*
 
+@Buggy("")
 class VirtualEntity(
     private val location: Location,
     private val entityType: EntityType = EntityType.PLAYER,

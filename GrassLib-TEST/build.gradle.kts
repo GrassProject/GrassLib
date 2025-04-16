@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.20"
     id("com.gradleup.shadow") version "9.0.0-beta10"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = rootProject.group
@@ -51,7 +52,14 @@ tasks.shadowJar {
 
     // destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
+    destinationDirectory=file("C:\\Users\\이태수\\Desktop\\GrassLib\\GrassLib-TEST\\run\\plugins")
     minimize {
         exclude(dependency("com.github.grassproject.*:.*"))
+    }
+}
+
+tasks {
+    runServer {
+        minecraftVersion("1.21")
     }
 }
