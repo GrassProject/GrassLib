@@ -30,3 +30,7 @@ inline fun <reified T : Enum<T>> ConfigurationSection.getEnum(path: String): T? 
 fun ConfigurationSection.toFileConfiguration(): FileConfiguration? {
     return this.root as? FileConfiguration
 }
+
+fun FileConfiguration.toSection(path: String): ConfigurationSection? {
+    return this.getConfigurationSection(path)
+}
