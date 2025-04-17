@@ -1,7 +1,6 @@
 package com.github.grassproject.grassLib.api.utilities
 
 import org.bukkit.Bukkit
-import org.bukkit.inventory.ItemStack
 import java.util.regex.Pattern
 
 object VersionUtils {

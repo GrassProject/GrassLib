@@ -1,4 +1,4 @@
-package com.github.grassproject.grassLib.api.utilities
+package com.github.grassproject.grassLib.api.utilities.inv
 
 import com.github.grassproject.grassLib.api.builder.InventoryBuilder
 import com.github.grassproject.grassLib.api.item.ItemUtils

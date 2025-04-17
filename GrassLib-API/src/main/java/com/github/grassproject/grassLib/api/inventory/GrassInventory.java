@@ -1,12 +1,12 @@
 package com.github.grassproject.grassLib.api.inventory;
 
 import com.github.grassproject.grassLib.api.builder.InventoryBuilder;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GrassInventory implements InventoryHolder {

@@ -12,7 +12,7 @@ import org.bukkit.Location
 import org.bukkit.entity.EntityType
 import java.util.*
 
-@Buggy("")
+@Buggy("IDK")
 class VirtualEntity(
     private val location: Location,
     private val entityType: EntityType = EntityType.PLAYER,

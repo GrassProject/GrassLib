@@ -3,7 +3,6 @@ package com.github.grassproject.grassLib.api.hook
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
 import com.github.grassproject.grassLib.api.utilities.PluginUtils
 import com.sk89q.worldedit.bukkit.BukkitAdapter
-import com.sk89q.worldedit.world.World as WEWorld
 import com.sk89q.worldguard.WorldGuard
 import com.sk89q.worldguard.protection.ApplicableRegionSet
 import com.sk89q.worldguard.protection.managers.RegionManager
@@ -13,6 +12,7 @@ import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
+import com.sk89q.worldedit.world.World as WEWorld
 
 object WorldGuardHook {
     init {
