@@ -1,6 +1,7 @@
 package com.github.grassproject.grassLib.api.config
 
 import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 
 fun YamlConfiguration.getFloat(path: String, def: Float = 0.0f): Float {
@@ -24,4 +25,8 @@ inline fun <reified T : Enum<T>> ConfigurationSection.getEnum(path: String): T? 
     return getString(path)?.uppercase()?.let { value ->
         enumValues<T>().firstOrNull { it.name == value }
     }
+}
+
+fun ConfigurationSection.toFileConfiguration(): FileConfiguration? {
+    return this.root as? FileConfiguration
 }
