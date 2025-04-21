@@ -1,4 +1,5 @@
 plugins {
+    idea
     kotlin("jvm") version "2.1.20"
     id("com.gradleup.shadow") version "9.0.0-beta10"
     id("maven-publish")
@@ -6,7 +7,7 @@ plugins {
 }
 
 group = "com.github.grassproject"
-version = "1.0"
+version = "1.1"
 
 allprojects {
     apply(plugin = "java")
@@ -52,6 +53,14 @@ kotlin {
 
 tasks.build {
     dependsOn("shadowJar")
+}
+
+idea {
+    module {
+        excludeDirs.addAll(allprojects.map { it.file("run") })
+        excludeDirs.addAll(allprojects.map { it.buildDir })
+        excludeDirs.addAll(allprojects.map { it.file(".gradle") })
+    }
 }
 
 //mavenPublishing {

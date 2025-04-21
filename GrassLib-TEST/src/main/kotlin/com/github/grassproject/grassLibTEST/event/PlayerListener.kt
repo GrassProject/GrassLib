@@ -3,7 +3,6 @@ package com.github.grassproject.grassLibTEST.event
 import com.github.grassproject.grassLib.api.builder.InventoryBuilder
 import com.github.grassproject.grassLib.api.utilities.component.toComponent
 import com.github.grassproject.grassLib.api.utilities.inv.InvHandler.onClick
-import com.github.grassproject.grassLib.api.utilities.inv.InventoryUtils
 import com.github.grassproject.grassLibTEST.inv.InvBTest
 import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
