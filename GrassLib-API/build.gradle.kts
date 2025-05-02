@@ -14,7 +14,7 @@ dependencies {
     compileOnly("io.lumine","Mythic-Dist", "5.6.1") // MythicMob
     compileOnly("dev.lone","api-itemsadder", "4.0.2-beta-release-11") // ItemsAdder
     compileOnly("io.th0rgal","oraxen","1.189.0") // Oraxen
-    compileOnly("com.nexomc", "nexo","1.0.0") // Nexo
+    compileOnly("com.nexomc", "nexo","1.1.0") // Nexo
     compileOnly("io.lumine", "MythicLib-dist","1.6.2-SNAPSHOT") // MythicLib
     compileOnly("net.Indyuce", "MMOItems-API","6.9.5-SNAPSHOT") // MMOItems
     compileOnly("com.arcaniax","HeadDatabase-API", "1.3.2") // HeadDatabase
