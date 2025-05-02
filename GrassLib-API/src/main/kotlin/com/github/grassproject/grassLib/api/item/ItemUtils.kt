@@ -23,12 +23,12 @@ object ItemUtils {
         val itemValue = itemName.substring(itemName.indexOf(":") + 1)
 
         return when (itemType) {
-            "ia", "itemsadder" -> ItemsAdder.getCustomItem(itemValue)
-            "nexo" -> Nexo.getCustomItem(itemValue)
-            "oraxen" -> Oraxen.getCustomItem(itemValue)
-            "mythic" -> Mythics.getCustomItem(itemValue)
-            "mmo" -> MMOItems.getCustomItem(itemValue)
-            "hdb" -> HeadDB.getCustomItem(itemValue)
+            "ia", "itemsadder" -> ItemsAdderItems.getCustomItem(itemValue)
+            "nexo" -> NexoItems.getCustomItem(itemValue)
+            "oraxen" -> OraxenItems.getCustomItem(itemValue)
+            "mythic" -> MythicsItems.getCustomItem(itemValue)
+            "mmo" -> MMOItemsItems.getCustomItem(itemValue)
+            "hdb" -> HeadDBItems.getCustomItem(itemValue)
             else -> Material.matchMaterial(itemName.uppercase())?.let { ItemStack(it) } ?: ItemStack(Material.AIR)
         }
     }

@@ -2,24 +2,24 @@ package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
 import com.github.grassproject.grassLib.api.utilities.BukkitUtils
-import io.th0rgal.oraxen.api.OraxenItems
+import dev.lone.itemsadder.api.CustomStack
 import org.bukkit.inventory.ItemStack
 
-object Oraxen : ItemUtil {
+object ItemsAdderItems : ItemUtilItems {
     init {
-        if (!BukkitUtils.checkPlugin("Oraxen")) {
-            throw NotFoundPlugin("Oraxen")
+        if (!BukkitUtils.checkPlugin("ItemsAdder")) {
+            throw NotFoundPlugin("ItemsAdder")
         }
     }
     override fun getID(itemStack: ItemStack): String? {
-        return OraxenItems.getIdByItem(itemStack)
+        return CustomStack.byItemStack(itemStack)?.namespacedID
     }
 
     override fun getCustomItem(id: String): ItemStack? {
-        return OraxenItems.getItemById(id).build()
+        return CustomStack.getInstance(id)!!.itemStack
     }
 
     override fun isCustomItem(itemStack: ItemStack): Boolean {
-        return OraxenItems.exists(itemStack)
+        return CustomStack.byItemStack(itemStack) != null
     }
 }

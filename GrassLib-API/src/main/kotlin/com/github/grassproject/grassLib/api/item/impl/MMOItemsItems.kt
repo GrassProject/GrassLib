@@ -5,7 +5,7 @@ import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import net.Indyuce.mmoitems.MMOItems
 import org.bukkit.inventory.ItemStack
 
-object MMOItems : ItemUtil {
+object MMOItemsItems : ItemUtilItems {
     init {
         if (!BukkitUtils.checkPlugin("MMOItems")) {
             throw NotFoundPlugin("MMOItems")

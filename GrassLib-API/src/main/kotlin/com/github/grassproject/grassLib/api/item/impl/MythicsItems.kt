@@ -7,7 +7,7 @@ import io.lumine.mythic.bukkit.MythicBukkit
 import io.lumine.mythic.bukkit.adapters.BukkitItemStack
 import org.bukkit.inventory.ItemStack
 
-object Mythics : ItemUtil {
+object MythicsItems : ItemUtilItems {
     init {
         if (!BukkitUtils.checkPlugin("MythicLib")) {
             throw NotFoundPlugin("MythicLib")

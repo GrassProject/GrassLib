@@ -9,7 +9,7 @@ import com.nexomc.nexo.api.NexoItems.idFromItem
 import com.nexomc.nexo.items.ItemBuilder
 import org.bukkit.inventory.ItemStack
 
-object Nexo : ItemUtil {
+object NexoItems : ItemUtilItems {
     init {
         if (!BukkitUtils.checkPlugin("Nexo")) {
             throw NotFoundPlugin("Nexo")

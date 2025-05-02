@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.api.reflect
 
+import com.nexomc.nexo.api.NexoItems
 import java.lang.reflect.Method
 
 class Reflects {
