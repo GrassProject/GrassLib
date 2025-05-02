@@ -32,22 +32,33 @@ class Encryption {
 
         @JvmStatic
         fun encrypt(input: String): String {
-            val cipher = Cipher.getInstance(s2)
-            val ivParameterSpec = fun1()
-            cipher.init(Cipher.ENCRYPT_MODE, fun2(), ivParameterSpec)
-            val encryptedBytes = cipher.doFinal(input.toByteArray(Charsets.UTF_8))
-            val combined = ivParameterSpec.iv + encryptedBytes
-            return base64Encoder.encodeToString(combined)
+            try {
+                val cipher = Cipher.getInstance(s2)
+                val ivParameterSpec = fun1()
+                cipher.init(Cipher.ENCRYPT_MODE, fun2(), ivParameterSpec)
+                val encryptedBytes = cipher.doFinal(input.toByteArray(Charsets.UTF_8))
+                val combined = ivParameterSpec.iv + encryptedBytes
+                return base64Encoder.encodeToString(combined)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return ""
+            }
         }
 
         @JvmStatic
         fun decrypt(input: String): String {
-            val decodedBytes = base64Decoder.decode(input)
-            val ivBytes = decodedBytes.copyOfRange(0, 16)
-            val encryptedBytes = decodedBytes.copyOfRange(16, decodedBytes.size)
-            val cipher = Cipher.getInstance(s2)
-            cipher.init(Cipher.DECRYPT_MODE, fun2(), IvParameterSpec(ivBytes))
-            return String(cipher.doFinal(encryptedBytes), Charsets.UTF_8)
+            try {
+                val decodedBytes = base64Decoder.decode(input)
+                val ivBytes = decodedBytes.copyOfRange(0, 16)
+                val encryptedBytes = decodedBytes.copyOfRange(16, decodedBytes.size)
+                val cipher = Cipher.getInstance(s2)
+                cipher.init(Cipher.DECRYPT_MODE, fun2(), IvParameterSpec(ivBytes))
+                return String(cipher.doFinal(encryptedBytes), Charsets.UTF_8)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return ""
         }
     }
 }
+

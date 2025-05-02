@@ -1,7 +1,6 @@
 package com.github.grassproject.grassLib
 
 import com.github.grassproject.grassLib.api.GrassAPI
-import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.plugin.java.JavaPlugin
 
 class GrassLib : JavaPlugin() {

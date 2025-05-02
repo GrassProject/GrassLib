@@ -4,7 +4,6 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import com.github.grassproject.grassLib.api.events.PlayerChunkChangeEvent;
 import com.github.grassproject.grassLib.api.inventory.InventoryEventHandler;
-import com.github.grassproject.grassLib.api.reflect.Reflects;
 import com.github.grassproject.grassLib.api.skript.skGrass;
 import com.github.grassproject.grassLib.api.utilities.BukkitUtils;
 import com.github.grassproject.grassLib.api.utilities.Register;
@@ -27,9 +26,14 @@ public class GrassAPI {
         // new Metrics(plugin, 25261);
         GrassAPI.plugin = plugin;
 
-        if (BukkitUtils.INSTANCE.isEnabled("Skript")) {
+        System.out.println("YEAH?"+BukkitUtils.INSTANCE.checkPlugin("Skript"));
+        System.out.println(Bukkit.getPluginManager().getPlugin("Skript").getPluginMeta().getName());
+        if (BukkitUtils.INSTANCE.checkPlugin("Skript")) {
+            System.out.println("YEAH!");
             addon= Skript.registerAddon(plugin);
             skGrass.init();
+        } else {
+            System.out.println("NO YEAH!");
         }
 
         new Register(plugin)

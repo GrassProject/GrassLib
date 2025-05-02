@@ -16,13 +16,10 @@ class Reflects {
         @JvmStatic
         fun getMethod(signature: String): Method? {
             require(signature.contains("#")) { "Invalid signature format. Expected: 'className#methodName'" }
-            println("Getting method: $signature") // not null
 
             val (className, methodName) = signature.split("#")
-            println("class: ${className} with method: ${methodName}") // not null
             return try {
                 val clazz = Class.forName(className.trim())
-                println(clazz.name) // not null
                 clazz.declaredMethods.firstOrNull { it.name == methodName.trim() }
             } catch (e: ClassNotFoundException) {
                 println("Class not found: $className")
@@ -54,7 +51,8 @@ class Reflects {
                 println("Invalid arguments for method: ${method.name}")
                 null
             }catch (e: Exception) {
-                println("Unexpected error invoking method: ${e.message}")
+                println("Unexpected error invoking method")
+                e.printStackTrace()
                 null
             }
         }

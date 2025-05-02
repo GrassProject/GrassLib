@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.api.skript
 
+import com.github.grassproject.grassLib.api.skript.utils.EffectMapping
 import com.github.grassproject.grassLib.api.skript.utils.ExprMethod
 
 class skGrass {
@@ -8,7 +9,7 @@ class skGrass {
         fun init() {
 
             ExprMethod()
-
+            EffectMapping()
         }
     }
 }

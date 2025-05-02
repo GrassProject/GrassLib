@@ -9,7 +9,8 @@ softdepend: [
   Oraxen,
   Nexo,
   ProtoclLib,
-  Vault
+  Vault,
+  Skript
 ]
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20

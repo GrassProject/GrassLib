@@ -1,5 +1,6 @@
 package com.github.grassproject.grassLib.api.database
 
+import com.github.grassproject.grassLib.api.config.FileUtil.getEnum
 import com.github.grassproject.grassLib.api.database.impl.MySQLDriver
 import com.github.grassproject.grassLib.api.database.impl.SQLiteDriver
 import com.zaxxer.hikari.HikariDataSource
@@ -21,7 +22,7 @@ class DatabaseManager(private val plugin: JavaPlugin) {
         check(!this::dataSource.isInitialized) { "DatabaseManager has already been initialized!" }
 
         val type = try {
-            DatabaseType.valueOf(config.getString("database.type")?.uppercase() ?: "SQLITE")
+            config.getEnum<DatabaseType>("database.type") ?: DatabaseType.SQLITE
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException("Unsupported database type: ${config.getString("database.type")}")
         }

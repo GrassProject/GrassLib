@@ -9,7 +9,6 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.inventory.Inventory
-import java.io.Closeable
 
 object InvHandler {
     private val plugin=GrassAPI.plugin

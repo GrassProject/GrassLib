@@ -16,7 +16,7 @@ object BukkitUtils {
 
     fun checkPlugin(plugin: String): Boolean {
         val pluginInstance = Bukkit.getPluginManager().getPlugin(plugin)
-        return pluginInstance != null && pluginInstance.isEnabled
+        return pluginInstance != null
     }
 
     fun Logger.log(message: String) {
