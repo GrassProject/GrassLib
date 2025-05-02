@@ -1,7 +1,7 @@
 package com.github.grassproject.grassLib.api.hook
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.api.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import org.bukkit.entity.Player
 import su.nightexpress.coinsengine.api.CoinsEngineAPI
 import su.nightexpress.nightcore.util.NumberUtil
@@ -9,7 +9,7 @@ import su.nightexpress.nightcore.util.NumberUtil
 object CoinsEngineHook {
 
     init {
-        if (!PluginUtils.checkPlugin("CoinsEngine")) {
+        if (!BukkitUtils.checkPlugin("CoinsEngine")) {
             throw NotFoundPlugin("CoinsEngine")
         }
     }

@@ -1,13 +1,13 @@
 package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.api.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import net.Indyuce.mmoitems.MMOItems
 import org.bukkit.inventory.ItemStack
 
-object MMOUtils : ItemUtil {
+object MMOItems : ItemUtil {
     init {
-        if (!PluginUtils.checkPlugin("MMOItems")) {
+        if (!BukkitUtils.checkPlugin("MMOItems")) {
             throw NotFoundPlugin("MMOItems")
         }
     }

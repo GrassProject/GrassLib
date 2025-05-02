@@ -7,7 +7,7 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
-val exposedVersion: String by project
+val exposedVersion="0.60.0"
 
 dependencies {
     compileOnly("io.papermc.paper", "paper-api", "1.21.1-R0.1-SNAPSHOT") // Paper
@@ -22,6 +22,8 @@ dependencies {
     compileOnly("com.github.MilkBowl", "VaultAPI","1.7.1") // Vault
     compileOnly("su.nightexpress.coinsengine", "CoinsEngine","2.4.1") // CoinsEngine
     compileOnly("com.sk89q.worldguard", "worldguard-bukkit", "7.0.13") // WorldGuard
+//    compileOnly()
+    implementation("com.github.SkriptLang:Skript:2.11.1") // Skript
 
     implementation("net.kyori","adventure-platform-bukkit","4.3.4") // Adventure API
 

@@ -1,10 +1,53 @@
 package com.github.grassproject.grassLib.api.utilities
 
 import org.bukkit.Bukkit
+import org.bukkit.event.Cancellable
+import org.bukkit.event.Event
+import java.util.logging.Level
+import java.util.logging.Logger
 import java.util.regex.Pattern
 
-object VersionUtils {
+object BukkitUtils {
     private val VERSION_PATTERN: Pattern = Pattern.compile("1\\.(19|20|21)(\\.\\d+)?")
+
+    fun isEnabled(plugin: String): Boolean {
+        return Bukkit.getPluginManager().isPluginEnabled(plugin)
+    }
+
+    fun checkPlugin(plugin: String): Boolean {
+        val pluginInstance = Bukkit.getPluginManager().getPlugin(plugin)
+        return pluginInstance != null && pluginInstance.isEnabled
+    }
+
+    fun Logger.log(message: String) {
+        this.info(colorize(message))
+    }
+
+    fun Logger.log(level: Level, message: String) {
+        this.log(level, message)
+    }
+
+    fun Logger.warning(message: String) {
+        this.warning(colorize(message))
+    }
+
+    fun Logger.severe(message: String) {
+        this.severe(colorize(message))
+    }
+
+    fun Logger.logException(message: String, exception: Throwable) {
+        this.log(Level.SEVERE, message, exception)
+    }
+
+    fun Event.call(): Boolean {
+        Bukkit.getPluginManager().callEvent(this)
+        return !(this is Cancellable && this.isCancelled)
+    }
+
+    fun <T : Event> T.call(block: T.() -> Unit) {
+        Bukkit.getPluginManager().callEvent(this)
+        block()
+    }
 
     val version: String?
         get() = getBukkitVersion(Bukkit.getBukkitVersion())
@@ -59,5 +102,16 @@ object VersionUtils {
             if (p1 != p2) return p1 - p2
         }
         return 0
+    }
+
+    private fun colorize(message: String): String {
+        return message
+            .replace("<red>", "\u001b[31m")
+            .replace("<green>", "\u001b[32m")
+            .replace("<yellow>", "\u001b[33m")
+            .replace("<aqua>", "\u001b[36m")
+            .replace("<white>", "\u001b[37m")
+            .replace("<reset>", "\u001b[0m")
+            .plus("\u001b[0m")
     }
 }

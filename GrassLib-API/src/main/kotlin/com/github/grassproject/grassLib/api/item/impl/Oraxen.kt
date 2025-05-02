@@ -1,13 +1,13 @@
 package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.api.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import io.th0rgal.oraxen.api.OraxenItems
 import org.bukkit.inventory.ItemStack
 
-object OraxenUtils : ItemUtil {
+object Oraxen : ItemUtil {
     init {
-        if (!PluginUtils.checkPlugin("Oraxen")) {
+        if (!BukkitUtils.checkPlugin("Oraxen")) {
             throw NotFoundPlugin("Oraxen")
         }
     }

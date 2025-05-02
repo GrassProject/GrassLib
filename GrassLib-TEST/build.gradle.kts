@@ -52,7 +52,7 @@ tasks.shadowJar {
 
     // destinationDirectory=file("C:\\Users\\aa010\\Desktop\\Grass\\plugins")
 //    destinationDirectory=file("C:\\Users\\PC\\Desktop\\Test_Server\\21.1\\plugins")
-    destinationDirectory=file("C:\\Users\\이태수\\Desktop\\GrassLib\\GrassLib-TEST\\run\\plugins")
+//    destinationDirectory=file("C:\\Users\\이태수\\Desktop\\GrassLib\\GrassLib-TEST\\run\\plugins")
     minimize {
         exclude(dependency("com.github.grassproject.*:.*"))
     }
@@ -61,5 +61,6 @@ tasks.shadowJar {
 tasks {
     runServer {
         minecraftVersion("1.21")
+        args?.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005")
     }
 }

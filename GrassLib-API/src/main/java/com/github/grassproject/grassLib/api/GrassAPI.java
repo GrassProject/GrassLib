@@ -1,7 +1,12 @@
 package com.github.grassproject.grassLib.api;
 
+import ch.njol.skript.Skript;
+import ch.njol.skript.SkriptAddon;
 import com.github.grassproject.grassLib.api.events.PlayerChunkChangeEvent;
 import com.github.grassproject.grassLib.api.inventory.InventoryEventHandler;
+import com.github.grassproject.grassLib.api.reflect.Reflects;
+import com.github.grassproject.grassLib.api.skript.skGrass;
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils;
 import com.github.grassproject.grassLib.api.utilities.Register;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -16,9 +21,17 @@ import java.util.UUID;
 
 public class GrassAPI {
     public static JavaPlugin plugin;
+    public static SkriptAddon addon;
+
     public static void setupGrassLib(JavaPlugin plugin) {
         // new Metrics(plugin, 25261);
         GrassAPI.plugin = plugin;
+
+        if (BukkitUtils.INSTANCE.isEnabled("Skript")) {
+            addon= Skript.registerAddon(plugin);
+            skGrass.init();
+        }
+
         new Register(plugin)
                 .resistEventListener(new Listener() {
                     private final Map<UUID, Chunk> playerChunk = new HashMap<>();

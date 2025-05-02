@@ -3,7 +3,7 @@ package com.github.grassproject.grassLib.api.item.impl
 import me.arcaniax.hdb.api.HeadDatabaseAPI
 import org.bukkit.inventory.ItemStack
 
-object HDBUtils : ItemUtil {
+object HeadDB : ItemUtil {
     override fun getID(itemStack: ItemStack): String? {
         return HeadDatabaseAPI().getItemID(itemStack)
     }

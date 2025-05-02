@@ -1,15 +1,15 @@
 package com.github.grassproject.grassLib.api.item.impl
 
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.api.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import io.lumine.mythic.api.MythicProvider
 import io.lumine.mythic.bukkit.MythicBukkit
 import io.lumine.mythic.bukkit.adapters.BukkitItemStack
 import org.bukkit.inventory.ItemStack
 
-object MythicUtils : ItemUtil {
+object Mythics : ItemUtil {
     init {
-        if (!PluginUtils.checkPlugin("MythicLib")) {
+        if (!BukkitUtils.checkPlugin("MythicLib")) {
             throw NotFoundPlugin("MythicLib")
         }
     }

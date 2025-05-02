@@ -1,12 +1,17 @@
 package com.github.grassproject.grassLib.api.hook
 
+import com.github.grassproject.grassLib.api.GrassAPI
 import com.github.grassproject.grassLib.api.exception.NotFoundPlugin
-import com.github.grassproject.grassLib.api.utilities.PluginUtils
+import com.github.grassproject.grassLib.api.utilities.BukkitUtils
 import com.sk89q.worldedit.bukkit.BukkitAdapter
+import com.sk89q.worldedit.math.BlockVector3
 import com.sk89q.worldguard.WorldGuard
 import com.sk89q.worldguard.protection.ApplicableRegionSet
 import com.sk89q.worldguard.protection.managers.RegionManager
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion
 import com.sk89q.worldguard.protection.regions.ProtectedRegion
+import org.bukkit.Bukkit
+import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -15,8 +20,10 @@ import org.bukkit.entity.Player
 import com.sk89q.worldedit.world.World as WEWorld
 
 object WorldGuardHook {
+    private val regionCache = mutableMapOf<String, List<ProtectedRegion>>()
+    private val plugin= GrassAPI.plugin
     init {
-        if (!PluginUtils.checkPlugin("WorldGuard")) {
+        if (!BukkitUtils.checkPlugin("WorldGuard")) {
             throw NotFoundPlugin("WorldGuard")
         }
     }
@@ -89,5 +96,52 @@ object WorldGuardHook {
         val wasInRegion = getRegion(from).equals(region, ignoreCase = true)
         val isInRegion = getRegion(to).equals(region, ignoreCase = true)
         return wasInRegion && !isInRegion
+    }
+
+    fun getRegionsInChunkAsync(
+        chunk: Chunk,
+        callback: (List<ProtectedRegion>) -> Unit
+    ) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
+            val cacheKey = "${chunk.world.name}:${chunk.x}:${chunk.z}"
+
+            regionCache[cacheKey]?.let {
+                runOnMainThread { callback(it) }
+                return@Runnable
+            }
+
+            val regions = computeRegionsInChunk(chunk)
+
+            regionCache[cacheKey] = regions
+
+            runOnMainThread { callback(regions) }
+        })
+    }
+
+    private fun computeRegionsInChunk(chunk: Chunk): List<ProtectedRegion> {
+        val worldGuard = WorldGuard.getInstance()
+        val regionContainer = worldGuard.platform.regionContainer
+        val world = BukkitAdapter.adapt(chunk.world)
+
+        val minX = chunk.x shl 4
+        val minZ = chunk.z shl 4
+        val maxX = minX + 15
+        val maxZ = minZ + 15
+        val minY = chunk.world.minHeight
+        val maxY = chunk.world.maxHeight
+
+        val minPoint = BlockVector3.at(minX, minY, minZ)
+        val maxPoint = BlockVector3.at(maxX, maxY, maxZ)
+        val chunkRegion = ProtectedCuboidRegion("temp_chunk_region", minPoint, maxPoint)
+
+        val regionManager = regionContainer.get(world) ?: return emptyList()
+        val applicableRegions = regionManager.getApplicableRegions(chunkRegion)
+        return applicableRegions.regions.toList()
+    }
+
+    private fun runOnMainThread(action: () -> Unit) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
+            action()
+        })
     }
 }

@@ -15,40 +15,43 @@ object InvHandler {
     private val plugin=GrassAPI.plugin
     fun Inventory.onClick(
         listener: (Player, InventoryClickEvent) -> Unit
-    ): Closeable {
+    ): Inventory {
         val inv=this
-        return addListener(plugin, object : Listener {
+        addListener(plugin, object : Listener {
             @EventHandler
             fun InventoryClickEvent.onClick() {
                 if (this.inventory!=inv || this.inventory.holder!=inv.holder) return
                 listener(whoClicked as? Player ?: return, this)
             }
         })
+        return inv
     }
 
     fun Inventory.onClose(
         listener:(Player, InventoryCloseEvent)-> Unit
-    ):Closeable {
+    ):Inventory {
         val inv=this
-        return addListener(plugin, object : Listener {
+        addListener(plugin, object : Listener {
             @EventHandler
             fun InventoryCloseEvent.onClose() {
                 if (this.inventory!=inv || this.inventory.holder!=inv.holder) return
                 listener(player as Player, this)
             }
         })
+        return inv
     }
 
     fun Inventory.onOpen(
         listener:(Player, InventoryOpenEvent)-> Unit
-    ):Closeable {
+    ): Inventory {
         val inv=this
-        return addListener(plugin, object : Listener {
+        addListener(plugin, object : Listener {
             @EventHandler
             fun InventoryOpenEvent.onOpen() {
                 if (this.inventory!=inv || this.inventory.holder!=inv.holder) return
                 listener(player as Player, this)
             }
         })
+        return inv
     }
 }

@@ -33,10 +33,9 @@ class PlayerListener : Listener {
                 meta.setItem(13, ItemStack(Material.PLAYER_HEAD))
             }
             .setItem(13, ItemStack(Material.PLAYER_HEAD))
-            .build().apply {
-                onClick { p, e->
-                    p.sendMessage(e.currentItem.toString())
-                }
+            .build()
+            .onClick { p, e->
+                p.sendMessage(e.currentItem.toString())
             }
         player.openInventory(inv)
     }
