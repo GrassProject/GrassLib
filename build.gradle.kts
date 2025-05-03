@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.grassproject"
-version = "1.1"
+version = "1.2"
 
 allprojects {
     apply(plugin = "java")
@@ -104,7 +104,7 @@ idea {
 //        }
 //
 //        scm {
-//            connection.set("scm:git:git://github.com/GrassProject/GrassLib.git")
+//            connection.set("scm:git: git://github.com/GrassProject/GrassLib.git")
 //            developerConnection.set("scm:git:ssh://github.com/GrassProject/grasslib.git")
 //            url.set("https://github.com/GrassProject/GrassLib")
 //        }
