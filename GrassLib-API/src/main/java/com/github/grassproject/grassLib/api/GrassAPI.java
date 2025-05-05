@@ -27,20 +27,9 @@ public class GrassAPI {
         GrassAPI.plugin = plugin;
 
         if (BukkitUtils.INSTANCE.checkPlugin("Skript")) {
-            System.out.println("YEAH!");
             addon= Skript.registerAddon(plugin);
             skGrass.init();
         }
-
-        /*System.out.println("YEAH?"+BukkitUtils.INSTANCE.checkPlugin("Skript"));
-        System.out.println(Bukkit.getPluginManager().getPlugin("Skript").getPluginMeta().getName());
-        if (BukkitUtils.INSTANCE.checkPlugin("Skript")) {
-            System.out.println("YEAH!");
-            addon= Skript.registerAddon(plugin);
-            skGrass.init();
-        } else {
-            System.out.println("NO YEAH!");
-        }*/
 
         new Register(plugin)
                 .resistEventListener(new Listener() {

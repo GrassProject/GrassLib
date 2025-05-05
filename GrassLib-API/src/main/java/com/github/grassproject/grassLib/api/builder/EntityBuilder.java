@@ -87,7 +87,7 @@ public class EntityBuilder<T extends Entity> {
      * @apiNote Build Entity Builder to Entity
      * @return Entity Class
      * */
-    public T build() {
+    public T spawn() {
         if (location==null) throw new EntityBuilderNullLocation("There's no location to spawn!");
         var world=location.getWorld();
         return world.spawn(location, clazz, reason, consumer);
