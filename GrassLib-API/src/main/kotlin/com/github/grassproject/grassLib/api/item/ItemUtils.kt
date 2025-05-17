@@ -29,6 +29,7 @@ object ItemUtils {
             "mythic" -> MythicsItems.getCustomItem(itemValue)
             "mmo" -> MMOItemsItems.getCustomItem(itemValue)
             "hdb" -> HeadDBItems.getCustomItem(itemValue)
+            "minecraft" -> Material.matchMaterial(itemName.uppercase())?.let { ItemStack(it) } ?: ItemStack(Material.AIR)
             else -> Material.matchMaterial(itemName.uppercase())?.let { ItemStack(it) } ?: ItemStack(Material.AIR)
         }
     }

@@ -61,7 +61,7 @@ tasks.shadowJar {
     relocate("net.kyori.adventure", "com.github.grassproject.grassLib.shadow.adventure")
     relocate("de.tr7zw.changeme.nbtapi", "com.github.grassproject.grassLib.shadow.nbtapi")
     relocate("com.zaxxer.hikari", "com.github.grassproject.grassLib.shadow.hikari")
-//    relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow.exposed")
+    relocate("org.jetbrains.exposed", "com.github.grassproject.grassLib.shadow.exposed")
     relocate("org.bstats","com.github.grassproject.grassLib.shadow.bstats")
     relocate("dev.jorel.commandapi", "com.github.grassproject.grassLib.shadow.commandapi")
 
