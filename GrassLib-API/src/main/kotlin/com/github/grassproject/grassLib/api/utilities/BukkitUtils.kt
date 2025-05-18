@@ -91,6 +91,16 @@ object BukkitUtils {
         return compareVersion(current, target) > 0
     }
 
+    fun isVersionAtOrAbove(target: String): Boolean {
+        val current = version ?: return false
+        return compareVersion(current, target) >= 0
+    }
+
+    fun isVersionAtLeast(target: String): Boolean {
+        val current = version ?: return false
+        return compareVersion(current, target) >= 0
+    }
+
     private fun compareVersion(version1: String, version2: String): Int {
         val parts1 = version1.split(".", "-").mapNotNull { it.toIntOrNull() }
         val parts2 = version2.split(".", "-").mapNotNull { it.toIntOrNull() }
