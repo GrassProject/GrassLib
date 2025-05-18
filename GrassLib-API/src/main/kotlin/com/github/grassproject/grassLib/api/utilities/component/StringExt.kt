@@ -58,11 +58,11 @@ object StringExt {
 
     fun toLegacyString(component: Component): String {
         val result = StringBuilder()
-        processComponent(component, result, NamedTextColor.WHITE, Style.empty())
+        processComponent(component, result, Style.empty())
         return result.toString()
     }
 
-    private fun processComponent(component: Component, result: StringBuilder, defaultColor: TextColor, parentStyle: Style) {
+    private fun processComponent(component: Component, result: StringBuilder, defaultColor: TextColor? = null, parentStyle: Style) {
         when (component) {
             is TextComponent -> {
                 val style = component.style().merge(parentStyle, Style.Merge.Strategy.IF_ABSENT_ON_TARGET)
@@ -77,6 +77,27 @@ object StringExt {
             else -> component.children().forEach { processComponent(it, result, defaultColor, parentStyle) }
         }
     }
+
+    private fun processComponent(component: Component, result: StringBuilder, parentStyle: Style) {
+        when (component) {
+            is TextComponent -> {
+                val style = component.style().merge(parentStyle, Style.Merge.Strategy.IF_ABSENT_ON_TARGET)
+                val color = style.color()
+                if (color != null) {
+                    result.append(COLOR_TO_LEGACY[color] ?: "")
+                }
+                DECORATION_CODES.forEach { (decoration, code) ->
+                    if (style.decoration(decoration) == TextDecoration.State.TRUE) {
+                        result.append(code)
+                    }
+                }
+                result.append(component.content())
+                component.children().forEach { processComponent(it, result, style) }
+            }
+            else -> component.children().forEach { processComponent(it, result, parentStyle) }
+        }
+    }
+
 
     fun toMiniMessage(string: String): Component {
         var result = string.replace("&", "§")
